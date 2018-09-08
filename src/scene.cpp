@@ -175,7 +175,9 @@ void CScene::play()
         switch (key)
         {
         case 0x1B: //ESC
-            //TODO:escape game
+            std::cout << "quit game." << std::endl;
+            system("pause");
+            exit(0);
             return;
         case 0x61: //a
             _cur_point.x = (_cur_point.x - 1) < 0 ? 0 : _cur_point.x - 1;
