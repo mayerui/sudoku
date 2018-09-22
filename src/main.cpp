@@ -15,8 +15,6 @@ int main()
     CScene scene;
 
     int erase_grid_number = inputDifficulty();
-    std::cout << &erase_grid_number << std::endl;
-    //scene.print();
 
     scene.generate();
     scene.eraseRandomGrids(erase_grid_number);

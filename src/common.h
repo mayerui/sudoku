@@ -10,11 +10,23 @@ enum difficulty_e
     HARD
 };
 
+enum state_e
+{
+    INITED = 0,
+    ERASED,
+};
+
 typedef struct stPoint
 {
     int x;
     int y;
 } point_t;
+
+typedef struct stPointValue
+{
+    int value;
+    int state;
+} point_value_t;
 
 class CPointSort
 {

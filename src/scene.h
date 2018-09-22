@@ -2,6 +2,7 @@
 #define _SUDOKU_SCENE_H_
 
 #include <conio.h>
+#include <iostream>
 #include "common.h"
 #include "block.h"
 
@@ -9,11 +10,6 @@
 class CScene
 {
   public:
-    void print()
-    {
-        std::cout << &_erased_map[16] << std::endl;
-    }
-
     CScene(int index = 3);
     virtual ~CScene();
 
@@ -37,8 +33,7 @@ class CScene
     CBlock _column_block[9];
     CBlock _row_block[9];
     CBlock _xy_block[3][3];
-    int _map[81];
-    int _erased_map[81];
+    point_value_t _map[81];
 };
 
 #endif

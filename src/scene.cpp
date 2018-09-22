@@ -12,7 +12,6 @@ CScene::CScene(int index)
       _cur_point({0, 0})
 {
     init();
-    memset(&_erased_map, 0, sizeof(_erased_map));
 }
 
 CScene::~CScene()
@@ -102,16 +101,19 @@ void CScene::init()
 
 bool CScene::setCurValue(const int value)
 {
-    if (0 == _erased_map[_cur_point.x + _cur_point.y * 9])
+    auto point = _map[_cur_point.x + _cur_point.y * 9];
+    if (ERASED == point.state)
+    {
+        setValue(_cur_point, value);
+        return true;
+    }
+    else
         return false;
-
-    setValue(_cur_point, value);
-    return true;
 }
 
 void CScene::setValue(const point_t p, const int value)
 {
-    _map[p.x + p.y * 9] = value;
+    _map[p.x + p.y * 9].value = value;
 }
 
 //选择count个格子清空
@@ -124,11 +126,13 @@ void CScene::eraseRandomGrids(const int count)
         p.x = AverageRandom(0, 9);
         p.y = AverageRandom(0, 9);
 
-        if (0 == _map[p.x + p.y * 9])
+        auto &point = _map[p.x + p.y * 9];
+
+        if (ERASED == _map[p.x + p.y * 9].state)
             continue;
 
         setValue(p, 0);
-        _erased_map[p.x + p.y * 9] = 1;
+        point.state = ERASED;
         ++i;
     }
 }
@@ -138,7 +142,7 @@ bool CScene::isComplete()
     //任何一个block未被填满，则肯定未完成
     for (size_t i = 0; i < 81; ++i)
     {
-        if (0 == _map[i])
+        if (UNSELECTED == _map[i].value)
             return false;
     }
 

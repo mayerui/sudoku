@@ -11,11 +11,11 @@ class CBlock
     bool isValid() const;
     bool isFull() const;
     void print() const;
-    void push_back(int *point);
+    void push_back(point_value_t *point);
 
   private:
     int _count;
-    int *_numbers[MAX_COUNT];
+    point_value_t *_numbers[MAX_COUNT];
 };
 
 #endif
