@@ -13,11 +13,12 @@ inline unsigned int random(int begin, int end)
     return (unsigned int)rand() % (end - begin + 1) + begin;
 }
 
-//网上找的均匀化随机数算法,不含max
+//网上找的均匀化随机数算法,不含max,非随机，弃用
 inline int AverageRandom(int min, int max)
 {
     int minInteger = min * 10000;
     int maxInteger = max * 10000;
+    srand(time(NULL));
     int randInteger = rand() * rand();
     int diffInteger = maxInteger - minInteger;
     int resultInteger = randInteger % diffInteger + minInteger;

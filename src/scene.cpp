@@ -2,6 +2,7 @@
 #include <iostream>
 #include <memory.h>
 #include <map>
+#include <vector>
 #include "common.h"
 #include "scene.h"
 #include "utility.inl"
@@ -237,7 +238,7 @@ void CScene::generate()
         char key = 'a';
         do
         {
-            key = 'a' + AverageRandom(0, 9);
+            key = 'a' + random(0, 8);
         } while (hash_map.end() != hash_map.find(key));
 
         hash_map[key] = i;
