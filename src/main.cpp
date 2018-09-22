@@ -17,12 +17,10 @@ int main()
     int erase_grid_number = inputDifficulty();
 
     scene.generate();
+
     scene.eraseRandomGrids(erase_grid_number);
 
-    while (1)
-    {
-        scene.play();
-    }
+    scene.play();
 #endif
 
     return 0;

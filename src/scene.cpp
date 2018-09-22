@@ -170,7 +170,7 @@ void CScene::play()
         if ('0' <= key && '9' >= key)
         {
             if (!setCurValue(key - '0'))
-                std::cout << "该数字不允许修改" << std::endl;
+                std::cout << "this number can't be modified." << std::endl;
             else
                 show();
             continue;
@@ -182,7 +182,6 @@ void CScene::play()
             std::cout << "quit game." << std::endl;
             system("pause");
             exit(0);
-            return;
         case 0x61: //a
             _cur_point.x = (_cur_point.x - 1) < 0 ? 0 : _cur_point.x - 1;
             show();
@@ -203,7 +202,8 @@ void CScene::play()
             if (isComplete())
             {
                 std::cout << "congratulation! you win!" << std::endl;
-                return;
+                system("pause");
+                exit(0);
             }
             else
             {
