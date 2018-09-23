@@ -120,21 +120,19 @@ void CScene::setValue(const point_t p, const int value)
 //选择count个格子清空
 void CScene::eraseRandomGrids(const int count)
 {
-    int i = 0;
-    while (i < count)
+    point_value_t p = {UNSELECTED, ERASED};
+
+    std::vector<int> v;
+    for (int i = 0; i < 81; ++i)
     {
-        point_t p = {0};
-        p.x = AverageRandom(0, 9);
-        p.y = AverageRandom(0, 9);
+        v.push_back(i);
+    }
 
-        auto &point = _map[p.x + p.y * 9];
-
-        if (ERASED == _map[p.x + p.y * 9].state)
-            continue;
-
-        setValue(p, 0);
-        point.state = ERASED;
-        ++i;
+    for (int i = 0; i < count; ++i)
+    {
+        int r = random(0, v.size() - 1);
+        _map[v[r]] = p;
+        v.erase(v.begin() + r);
     }
 }
 
