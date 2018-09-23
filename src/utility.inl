@@ -8,7 +8,7 @@
 //not real random,return number between [begin,end]
 inline unsigned int random(int begin, int end)
 {
-    assert(end > begin && begin >= 0);
+    assert(end >= begin && begin >= 0);
     srand(time(NULL));
     return (unsigned int)rand() % (end - begin + 1) + begin;
 }

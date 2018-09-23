@@ -231,15 +231,19 @@ void CScene::generate()
         "bcaefdhig",
         "efdhigbca"};
 
+    std::vector<char> v;
+    for (int i = 0; i < 9; ++i)
+    {
+        v.push_back('a' + i);
+    }
+
     //产生字母到数字的随机映射
     std::map<char, int> hash_map;
     for (int i = 1; i <= 9; ++i)
     {
-        char key = 'a';
-        do
-        {
-            key = 'a' + random(0, 8);
-        } while (hash_map.end() != hash_map.find(key));
+        int r = random(0, v.size() - 1);
+        char key = v[r];
+        v.erase(v.begin() + r);
 
         hash_map[key] = i;
     }
