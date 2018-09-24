@@ -20,9 +20,9 @@ int inputDifficulty()
         case EASY:
             return 20;
         case NORMAL:
-            return 40;
+            return 35;
         case HARD:
-            return 60;
+            return 50;
         default:
             std::cout << "ÊäÈë´íÎó£¡" << std::endl;
             continue;
