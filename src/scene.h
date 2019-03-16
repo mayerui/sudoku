@@ -1,7 +1,6 @@
 #ifndef _SUDOKU_SCENE_H_
 #define _SUDOKU_SCENE_H_
 
-#include <conio.h>
 #include <iostream>
 #include "common.h"
 #include "block.h"
