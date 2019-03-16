@@ -179,7 +179,7 @@ void CScene::play()
         {
         case 0x1B: //ESC
             std::cout << "quit game." << std::endl;
-            system("pause");
+            getchar();
             exit(0);
         case 0x61: //a
             _cur_point.x = (_cur_point.x - 1) < 0 ? 0 : _cur_point.x - 1;
@@ -201,7 +201,7 @@ void CScene::play()
             if (isComplete())
             {
                 std::cout << "congratulation! you win!" << std::endl;
-                system("pause");
+                getchar();
                 exit(0);
             }
             else

@@ -10,7 +10,7 @@ int main()
 {
 #if _TEST_
     test_case1();
-    system("pause");
+    getchar();
 #else
     CScene scene;
 
