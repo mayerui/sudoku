@@ -1,4 +1,4 @@
-#ifndef _SUDOKU_UTILITY_INL_
+﻿#ifndef _SUDOKU_UTILITY_INL_
 #define _SUDOKU_UTILITY_INL_
 
 #include <cstdlib>

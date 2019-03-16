@@ -1,4 +1,4 @@
-#ifndef _SUDOKU_COLOR_H
+﻿#ifndef _SUDOKU_COLOR_H
 #define _SUDOKU_COLOR_H
 
 #include <iostream>

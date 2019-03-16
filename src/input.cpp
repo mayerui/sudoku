@@ -1,4 +1,4 @@
-#include <iostream>
+ï»¿#include <iostream>
 #include <sstream>
 #include <string>
 #include "common.h"
@@ -9,7 +9,7 @@ int inputDifficulty()
     std::string cmd;
     while (1)
     {
-        std::cout << "ÉèÖÃÄÑ¶È£º1¼òµ¥ 2ÆÕÍ¨ 3À§ÄÑ" << std::endl;
+        std::cout << "è®¾ç½®éš¾åº¦ï¼š1ç®€å• 2æ™®é€š 3å›°éš¾" << std::endl;
 
         std::cin >> cmd;
 
@@ -24,7 +24,7 @@ int inputDifficulty()
         case HARD:
             return 50;
         default:
-            std::cout << "ÊäÈë´íÎó£¡" << std::endl;
+            std::cout << "è¾“å…¥é”™è¯¯ï¼" << std::endl;
             continue;
         }
     }

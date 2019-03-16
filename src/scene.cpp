@@ -1,4 +1,4 @@
-#include <cmath>
+ï»¿#include <cmath>
 #include <iostream>
 #include <memory.h>
 #include <map>
@@ -55,7 +55,7 @@ void CScene::init()
 {
     memset(_map, UNSELECTED, sizeof _map);
 
-    //column_block ËùÓÐÁÐ
+    //column_block æ‰€æœ‰åˆ—
     for (int column = 0; column < _max_column; ++column)
     {
         CBlock column_block;
@@ -67,7 +67,7 @@ void CScene::init()
         _column_block[column] = column_block;
     }
 
-    //row_block ËùÓÐÐÐ
+    //row_block æ‰€æœ‰è¡Œ
     for (int row = 0; row < _max_column; ++row)
     {
         CBlock row_block;
@@ -79,7 +79,7 @@ void CScene::init()
         _row_block[row] = row_block;
     }
 
-    //xy_block ËùÓÐ¾Å¹¬¸ñ, [ÐÐ][ÁÐ]
+    //xy_block æ‰€æœ‰ä¹å®«æ ¼, [è¡Œ][åˆ—]
     for (int block_index = 0; block_index < _max_column; ++block_index)
     {
         CBlock xy_block;
@@ -117,7 +117,7 @@ void CScene::setValue(const point_t p, const int value)
     _map[p.x + p.y * 9].value = value;
 }
 
-//Ñ¡Ôñcount¸ö¸ñ×ÓÇå¿Õ
+//é€‰æ‹©countä¸ªæ ¼å­æ¸…ç©º
 void CScene::eraseRandomGrids(const int count)
 {
     point_value_t p = {UNSELECTED, ERASED};
@@ -138,14 +138,14 @@ void CScene::eraseRandomGrids(const int count)
 
 bool CScene::isComplete()
 {
-    //ÈÎºÎÒ»¸öblockÎ´±»ÌîÂú£¬Ôò¿Ï¶¨Î´Íê³É
+    //ä»»ä½•ä¸€ä¸ªblockæœªè¢«å¡«æ»¡ï¼Œåˆ™è‚¯å®šæœªå®Œæˆ
     for (size_t i = 0; i < 81; ++i)
     {
         if (UNSELECTED == _map[i].value)
             return false;
     }
 
-    //Í¬Ê±blockÀïµÄÊý×Ö»¹Òª·ûºÏ¹æÔò
+    //åŒæ—¶blocké‡Œçš„æ•°å­—è¿˜è¦ç¬¦åˆè§„åˆ™
     for (int row = 0; row < 9; ++row)
     {
         for (int column = 0; column < 9; ++column)
@@ -215,7 +215,7 @@ void CScene::play()
     }
 }
 
-//Ò»¸ö³¡¾°¿ÉÒÔ¶à´Î±»³õÊ¼»¯
+//ä¸€ä¸ªåœºæ™¯å¯ä»¥å¤šæ¬¡è¢«åˆå§‹åŒ–
 void CScene::generate()
 {
     static char map_pattern[10][10] = {
@@ -235,7 +235,7 @@ void CScene::generate()
         v.push_back('a' + i);
     }
 
-    //²úÉú×ÖÄ¸µ½Êý×ÖµÄËæ»úÓ³Éä
+    //äº§ç”Ÿå­—æ¯åˆ°æ•°å­—çš„éšæœºæ˜ å°„
     std::map<char, int> hash_map;
     for (int i = 1; i <= 9; ++i)
     {
@@ -246,7 +246,7 @@ void CScene::generate()
         hash_map[key] = i;
     }
 
-    //ÌîÈë³¡¾°
+    //å¡«å…¥åœºæ™¯
     for (int row = 0; row < 9; ++row)
     {
         for (int column = 0; column < 9; ++column)

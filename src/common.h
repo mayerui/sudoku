@@ -1,4 +1,4 @@
-#ifndef _SUDOKU_COMMON_H_
+﻿#ifndef _SUDOKU_COMMON_H_
 #define _SUDOKU_COMMON_H_
 
 static const unsigned int UNSELECTED = 0;

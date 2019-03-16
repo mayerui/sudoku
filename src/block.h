@@ -1,4 +1,4 @@
-#ifndef _SUDOKU_BLOCK_H_
+﻿#ifndef _SUDOKU_BLOCK_H_
 #define _SUDOKU_BLOCK_H_
 
 //数独行政区域类
