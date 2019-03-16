@@ -22,7 +22,7 @@ CScene::~CScene()
 
 void CScene::show() const
 {
-    system("cls");
+    cls();
 
     printUnderline();
 
