@@ -178,9 +178,18 @@ void CScene::play()
         switch (key)
         {
         case 0x1B: //ESC
-            std::cout << "quit game." << std::endl;
-            getchar();
-            exit(0);
+        {       
+            std::cout << "quit game ? [Y/N]" << std::endl;
+            std::string strInput;
+            std::cin >> strInput;
+            if (strInput[0] == 'y' || strInput[0] == 'Y')
+                exit(0);
+            else
+            {
+                std::cout << "continue." << std::endl;
+                break;
+            }
+        }
         case 0x61: //a
             _cur_point.x = (_cur_point.x - 1) < 0 ? 0 : _cur_point.x - 1;
             show();
