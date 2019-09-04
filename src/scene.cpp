@@ -165,7 +165,7 @@ void CScene::play()
     char key = '\0';
     while (1)
     {
-        key = getch(); //windows
+        key = getch();
         if ('0' <= key && '9' >= key)
         {
             if (!setCurValue(key - '0'))
