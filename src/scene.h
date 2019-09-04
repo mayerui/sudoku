@@ -4,6 +4,7 @@
 #include <iostream>
 #include "common.h"
 #include "block.h"
+#include "command.h"
 
 //数独场景类
 class CScene
@@ -33,6 +34,8 @@ class CScene
     CBlock _row_block[9];
     CBlock _xy_block[3][3];
     point_value_t _map[81];
+
+    std::vector<CCommand> _vCommand;
 };
 
 #endif
