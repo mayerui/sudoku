@@ -181,7 +181,7 @@ void CScene::play()
             }
             else
             {
-                _vCommand.push_back(oCommand);
+                _vCommand.push_back(std::move(oCommand));
                 show();
                 continue;
             }

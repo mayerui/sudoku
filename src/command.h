@@ -16,7 +16,7 @@ public:
     void undo();
 
 private:
-    std::unique_ptr<CScene> _pOwner;
+    CScene* _pOwner;
     point_t _stPoint;
     int _nPreValue;
     int _nCurValue;
