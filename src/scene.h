@@ -2,6 +2,7 @@
 #define _SUDOKU_SCENE_H_
 
 #include <iostream>
+#include <vector>
 #include "common.h"
 #include "block.h"
 #include "command.h"
@@ -15,7 +16,11 @@ class CScene
 
     void generate();
     void show() const;
-    bool setCurValue(const int);
+
+    bool setCurValue(const int nCurValue, int& nLastValue);
+    bool setPointValue(const point_t&, const int);
+    point_t getCurPoint();
+
     void eraseRandomGrids(const int count);
     bool isComplete();
 

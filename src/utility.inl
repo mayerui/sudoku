@@ -55,7 +55,7 @@ char getch(void)
 }
 #endif
 
-void cls(void)
+inline void cls(void)
 {
 #ifdef _WIN32
     system("cls");

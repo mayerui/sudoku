@@ -1,4 +1,4 @@
-#include <cmath>
+﻿#include <cmath>
 #include <iostream>
 #include <memory.h>
 #include <map>
@@ -99,12 +99,13 @@ void CScene::init()
     return;
 }
 
-bool CScene::setCurValue(const int value)
+bool CScene::setCurValue(const int nCurValue, int &nLastValue)
 {
     auto point = _map[_cur_point.x + _cur_point.y * 9];
     if (ERASED == point.state)
     {
-        setValue(_cur_point, value);
+        nLastValue = point.value;
+        setValue(_cur_point, nCurValue);
         return true;
     }
     else
@@ -113,6 +114,7 @@ bool CScene::setCurValue(const int value)
 
 void CScene::setValue(const point_t p, const int value)
 {
+    _cur_point = p;
     _map[p.x + p.y * 9].value = value;
 }
 
@@ -167,11 +169,17 @@ void CScene::play()
         key = getch();
         if ('0' <= key && '9' >= key)
         {
-            if (!setCurValue(key - '0'))
+            CCommand oCommand(this);
+            if (!oCommand.excute(key - '0'))
+            {
                 std::cout << "this number can't be modified." << std::endl;
+            }
             else
+            {
+                _vCommand.push_back(oCommand);
                 show();
-            continue;
+                continue;
+            }
         }
 
         switch (key)
@@ -268,4 +276,21 @@ void CScene::generate()
     assert(isComplete());
 
     return;
+}
+
+bool CScene::setPointValue(const point_t &stPoint, const int nValue)
+{
+    auto point = _map[stPoint.x + stPoint.y * 9];
+    if (ERASED == point.state)
+    {
+        setValue(stPoint, nValue);
+        return true;
+    }
+    else
+        return false;
+}
+
+point_t CScene::getCurPoint()
+{
+    return _cur_point;
 }
