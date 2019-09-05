@@ -204,10 +204,15 @@ void CScene::play()
         }
         case 0x75: //u
         {
-            CCommand &oCommand = _vCommand.back();
-            oCommand.undo();
-            _vCommand.pop_back();
-            show();
+            if (_vCommand.empty())
+                std::cout << "no more action to undo." << std::endl;
+            else
+            {
+                CCommand &oCommand = _vCommand.back();
+                oCommand.undo();
+                _vCommand.pop_back();
+                show();
+            }
             break;
         }
         case 0x61: //a
