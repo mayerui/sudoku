@@ -202,6 +202,14 @@ void CScene::play()
                 break;
             }
         }
+        case 0x75: //u
+        {
+            CCommand &oCommand = _vCommand.back();
+            oCommand.undo();
+            _vCommand.pop_back();
+            show();
+            break;
+        }
         case 0x61: //a
             _cur_point.x = (_cur_point.x - 1) < 0 ? 0 : _cur_point.x - 1;
             show();
