@@ -2,10 +2,13 @@
 #include <sstream>
 #include <string>
 #include "common.h"
+#include "utility.inl"
 
 //return erase grid number
 int inputDifficulty()
 {
+    cls();
+
     std::string cmd;
     while (1)
     {
