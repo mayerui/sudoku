@@ -31,7 +31,7 @@ inline int AverageRandom(int min, int max)
 #else
 #include <termio.h>
 #include <cstdio>
-char getch(void)
+inline char getch(void)
 {
     struct termios tmtemp, tm;
     char c;
