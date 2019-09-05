@@ -8,10 +8,11 @@ class CScene;
 class CCommand
 {
 public:
-    CCommand(std::shared_ptr<CScene> pOwner);
+    CCommand(CScene* pOwner);
+    CCommand(const CCommand &);
     ~CCommand();
 
-    void excute();
+    bool excute(int nInputValue);
     void undo();
 
 private:
