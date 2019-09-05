@@ -105,17 +105,22 @@ bool CScene::setCurValue(const int nCurValue, int &nLastValue)
     if (ERASED == point.state)
     {
         nLastValue = point.value;
-        setValue(_cur_point, nCurValue);
+        setValue(nCurValue);
         return true;
     }
     else
         return false;
 }
 
-void CScene::setValue(const point_t p, const int value)
+void CScene::setValue(const point_t& p, const int value)
 {
-    _cur_point = p;
     _map[p.x + p.y * 9].value = value;
+}
+
+void CScene::setValue(const int value)
+{
+    auto p = _cur_point;
+    this->setValue(p, value);
 }
 
 //选择count个格子清空
@@ -283,7 +288,8 @@ bool CScene::setPointValue(const point_t &stPoint, const int nValue)
     auto point = _map[stPoint.x + stPoint.y * 9];
     if (ERASED == point.state)
     {
-        setValue(stPoint, nValue);
+        _cur_point = stPoint;
+        setValue(nValue);
         return true;
     }
     else

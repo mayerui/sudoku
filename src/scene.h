@@ -28,10 +28,11 @@ class CScene
 
   private:
     void init(); //将每个格子的指针放到block里面
-    void setValue(const point_t, const int);
+    void setValue(const int);
+    void setValue(const point_t &, const int);
     void printUnderline(int line_no = -1) const;
 
-  private:
+private:
     int _index;
     int _max_column;
     point_t _cur_point;
