@@ -1,4 +1,4 @@
-﻿#include <cmath>
+#include <cmath>
 #include <iostream>
 #include <memory.h>
 #include <map>
@@ -17,7 +17,6 @@ CScene::CScene(int index)
 
 CScene::~CScene()
 {
-    //delete _map;
 }
 
 void CScene::show() const
