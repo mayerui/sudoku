@@ -4,9 +4,6 @@ PROJECT(sudoku)    # 工程名 CppTemplate
 
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11") # 添加c++11标准支持
 
-SET(CMAKE_C_COMPILER "/usr/bin/gcc") # 默认c编译器
-SET(CMAKE_CXX_COMPILER "/usr/bin/g++") # 默认c++编译器
-
 SET(CMAKE_BUILD_TYPE "Debug")  # Debug模式 选项: Release Debug MinSizeRel RelWithDebInfo
 
 SET(CMAKE_CXX_FLAGS_DEBUG "$ENV{CXXFLAGS} -O0 -Wall -g2 -ggdb")  # debug模式下 gdb相关选项
