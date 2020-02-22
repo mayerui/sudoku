@@ -5,6 +5,9 @@ C++ 实现的跨平台数独游戏，命令行操作易上手，可以在开发�
 ## 特性
 1. 跨平台 : Linux/Windows
 
+## 依赖
+1. cmake 3.12及以上
+
 ## 构建
 1. Windows 下一键编译: `build.bat`
 2. Linux 下一键构建: `sh build.sh`
