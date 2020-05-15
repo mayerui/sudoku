@@ -47,7 +47,7 @@ void CBlock::print() const
             std::cout << ' ' << " | ";
         else
         {
-            if (ERASED == number.state)
+            if (number.state == State::ERASED)
                 std::cout << Color::Modifier(Color::FG_GREEN) << number.value << Color::Modifier(Color::RESET) << " | ";
             else
                 std::cout << number.value << " | ";

@@ -25,9 +25,11 @@ class CScene
     bool isComplete();
 
     void play();
+    void save(const char *filename);
+    void load(const char *filename);
 
   private:
-    void init(); //将每个格子的指针放到block里面
+    void init(); // 将每个格子的指针放到block里面
     void setValue(const int);
     void setValue(const point_t &, const int);
     void printUnderline(int line_no = -1) const;
