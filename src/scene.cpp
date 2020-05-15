@@ -1,5 +1,6 @@
 ﻿#include <cmath>
 #include <iostream>
+#include <fstream>
 #include <memory.h>
 #include <map>
 #include <unordered_map>
@@ -160,6 +161,57 @@ bool CScene::isComplete()
     return true;
 }
 
+void CScene::save(const char *filename) {
+    std::fstream fs;
+    // TODO: check whether the file has existed
+    fs.open(filename, std::fstream::in | std::fstream::out | std::fstream::app);
+
+    // save _map
+    for (int i = 0; i < 81; i++) {
+        fs << _map[i].value << ' ' << static_cast<int>(_map[i].state) << std::endl;
+    }
+
+    // save _cur_point
+    fs << _cur_point.x << ' ' << _cur_point.y << std::endl;
+
+    // save _vCommand
+    fs << _vCommand.size() << std::endl;
+    for (CCommand command : _vCommand) {
+        point_t point = command.getPoint();
+        fs << point.x << ' ' << point.y << ' '
+           << command.getPreValue() << ' '
+           << command.getCurValue() << std::endl;
+    }
+
+    fs.close();
+}
+
+void CScene::load(const char *filename) {
+    std::fstream fs;
+    // TODO: check whether the file has existed
+    fs.open(filename, std::fstream::in | std::fstream::out | std::fstream::app);
+
+    // load _map
+    for (int i = 0; i < 81; i++) {
+        int tmpState;
+        fs >> _map[i].value >> tmpState;
+        _map[i].state = static_cast<State>(tmpState);
+    }
+
+    // load _cur_point
+    fs >> _cur_point.x >> _cur_point.y;
+
+    // load _vCommand
+    int commandSize;
+    fs >> commandSize;
+    for (int i = 0; i < commandSize; i++) {
+        point_t point;
+        int preValue, curValue;
+        fs >> point.x >> point.y >> preValue >> curValue;
+        _vCommand.emplace_back(this, point, preValue, curValue);
+    }
+}
+
 void CScene::play()
 {
     show();
@@ -190,8 +242,16 @@ void CScene::play()
             std::cout << "quit game ? [Y/N]" << std::endl;
             std::string strInput;
             std::cin >> strInput;
-            if (strInput[0] == 'y' || strInput[0] == 'Y')
+            if (strInput[0] == 'y' || strInput[0] == 'Y') {
+                std::cout << "do you want to save the game progress ? [Y/N]" << std::endl;
+                std::cin >> strInput;
+                if (strInput[0] == 'y' || strInput[0] == 'Y') {
+                    std::cout << "input path of the progress file: ";
+                    std::cin >> strInput;
+                    save(strInput.c_str());
+                }
                 exit(0);
+            }
             else
             {
                 std::cout << "continue." << std::endl;
