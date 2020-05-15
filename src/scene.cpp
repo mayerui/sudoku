@@ -48,6 +48,10 @@ void CScene::printUnderline(int line_no) const
     }
     underline += '-';
 
+    for (int i = 0; i < 4; i++) {
+        underline[i * 12] = ((line_no + 1) % 3 == 0) ? '+' : '|';
+    }
+
     std::cout << underline.c_str() << std::endl;
 }
 
