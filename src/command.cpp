@@ -13,7 +13,7 @@ CCommand::CCommand(const CCommand &rhs)
 
 CCommand::~CCommand(){}
 
-bool CCommand::excute(int nInputValue)
+bool CCommand::execute(int nInputValue)
 {
     if (!_pOwner)
         return false;

@@ -12,7 +12,7 @@ public:
     CCommand(const CCommand &);
     ~CCommand();
 
-    bool excute(int nInputValue);
+    bool execute(int nInputValue);
     void undo();
 
 private:

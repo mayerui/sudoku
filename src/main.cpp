@@ -12,13 +12,13 @@ int main()
     test_case1();
     getchar();
 #else
+    int eraseGridNumber = inputDifficulty();
+
     CScene scene;
-
-    int erase_grid_number = inputDifficulty();
-
+    
     scene.generate();
-
-    scene.eraseRandomGrids(erase_grid_number);
+    
+    scene.eraseRandomGrids(eraseGridNumber);
 
     scene.play();
 #endif

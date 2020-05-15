@@ -3,30 +3,28 @@
 
 static const unsigned int UNSELECTED = 0;
 
-enum difficulty_e
+enum class Difficulty : int
 {
     EASY = 1,
     NORMAL,
     HARD
 };
 
-enum state_e
+enum class State : int
 {
     INITED = 0,
     ERASED,
 };
 
-typedef struct stPoint
-{
+using point_t = struct point_t {
     int x;
     int y;
-} point_t;
+};
 
-typedef struct stPointValue
-{
+using point_value_t = struct point_value_t {
     int value;
-    int state;
-} point_value_t;
+    State state;
+};
 
 class CPointSort
 {

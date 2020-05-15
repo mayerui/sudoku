@@ -4,7 +4,7 @@
 #include "common.h"
 #include "utility.inl"
 
-//return erase grid number
+// return number of grids to be erased
 int inputDifficulty()
 {
     cls();
@@ -16,15 +16,15 @@ int inputDifficulty()
 
         std::cin >> cmd;
 
-        int difficulty = atoi(cmd.c_str());
+        Difficulty difficulty = static_cast<Difficulty>(std::stoi(cmd));
 
         switch (difficulty)
         {
-        case EASY:
+        case Difficulty::EASY:
             return 20;
-        case NORMAL:
+        case Difficulty::NORMAL:
             return 35;
-        case HARD:
+        case Difficulty::HARD:
             return 50;
         default:
             std::cout << "输入错误！" << std::endl;
@@ -32,5 +32,6 @@ int inputDifficulty()
         }
     }
 
+    assert(0);
     return 0;
 }

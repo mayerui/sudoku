@@ -2,6 +2,7 @@
 #include <iostream>
 #include <memory.h>
 #include <map>
+#include <unordered_map>
 #include <vector>
 #include "common.h"
 #include "scene.h"
@@ -27,7 +28,7 @@ void CScene::show() const
 
     for (int row = 0; row < _max_column; ++row)
     {
-        auto block = _row_block[row];
+        CBlock block = _row_block[row];
         block.print();
         printUnderline(row);
     }
@@ -40,7 +41,6 @@ void CScene::printUnderline(int line_no) const
     for (int colunm = 0; colunm < 9; ++colunm)
     {
         if (_cur_point.y == line_no && _cur_point.x == colunm)
-
             underline += "--^-";
         else
             underline += "----";
@@ -54,45 +54,41 @@ void CScene::init()
 {
     memset(_map, UNSELECTED, sizeof _map);
 
-    //column_block 所有列
-    for (int column = 0; column < _max_column; ++column)
+    // column_block 所有列
+    for (int col = 0; col < _max_column; ++col)
     {
         CBlock column_block;
 
         for (int row = 0; row < _max_column; ++row)
         {
-            column_block.push_back(_map + row * 9 + column);
+            column_block.push_back(_map + row * 9 + col);
         }
-        _column_block[column] = column_block;
+        _column_block[col] = column_block;
     }
 
-    //row_block 所有行
+    // row_block 所有行
     for (int row = 0; row < _max_column; ++row)
     {
         CBlock row_block;
 
-        for (int column = 0; column < _max_column; ++column)
+        for (int col = 0; col < _max_column; ++col)
         {
-            row_block.push_back(_map + row * 9 + column);
+            row_block.push_back(_map + row * 9 + col);
         }
         _row_block[row] = row_block;
     }
 
-    //xy_block 所有九宫格, [行][列]
+    // xy_block 所有九宫格, [行][列]
     for (int block_index = 0; block_index < _max_column; ++block_index)
     {
         CBlock xy_block;
 
         int xy_begin = block_index / 3 * 27 + block_index % 3 * 3;
-        xy_block.push_back(_map + xy_begin);
-        xy_block.push_back(_map + xy_begin + 1);
-        xy_block.push_back(_map + xy_begin + 2);
-        xy_block.push_back(_map + xy_begin + 9);
-        xy_block.push_back(_map + xy_begin + 10);
-        xy_block.push_back(_map + xy_begin + 11);
-        xy_block.push_back(_map + xy_begin + 18);
-        xy_block.push_back(_map + xy_begin + 19);
-        xy_block.push_back(_map + xy_begin + 20);
+        for (int i = 0; i < 3; i++) {
+            for (int j = 0; j < 3; j++) {
+                xy_block.push_back(_map + xy_begin + i * 9 + j);
+            }
+        }
         _xy_block[block_index / 3][block_index % 3] = xy_block;
     }
 
@@ -102,7 +98,7 @@ void CScene::init()
 bool CScene::setCurValue(const int nCurValue, int &nLastValue)
 {
     auto point = _map[_cur_point.x + _cur_point.y * 9];
-    if (ERASED == point.state)
+    if (point.state == State::ERASED)
     {
         nLastValue = point.value;
         setValue(nCurValue);
@@ -123,19 +119,17 @@ void CScene::setValue(const int value)
     this->setValue(p, value);
 }
 
-//选择count个格子清空
+// 选择count个格子清空
 void CScene::eraseRandomGrids(const int count)
 {
-    point_value_t p = {UNSELECTED, ERASED};
+    point_value_t p = {UNSELECTED, State::ERASED};
 
-    std::vector<int> v;
-    for (int i = 0; i < 81; ++i)
-    {
-        v.push_back(i);
+    std::vector<int> v(81);
+    for (int i = 0; i < 81; ++i) {
+        v[i] = i;
     }
 
-    for (int i = 0; i < count; ++i)
-    {
+    for (int i = 0; i < count; ++i) {
         int r = random(0, v.size() - 1);
         _map[v[r]] = p;
         v.erase(v.begin() + r);
@@ -144,19 +138,21 @@ void CScene::eraseRandomGrids(const int count)
 
 bool CScene::isComplete()
 {
-    //任何一个block未被填满，则肯定未完成
+    // 任何一个block未被填满，则肯定未完成
     for (size_t i = 0; i < 81; ++i)
     {
-        if (UNSELECTED == _map[i].value)
+        if (_map[i].value == UNSELECTED)
             return false;
     }
 
-    //同时block里的数字还要符合规则
+    // 同时block里的数字还要符合规则
     for (int row = 0; row < 9; ++row)
     {
-        for (int column = 0; column < 9; ++column)
+        for (int col = 0; col < 9; ++col)
         {
-            if (!_row_block[row].isValid() || !_column_block[column].isValid() || !_xy_block[row / 3][column / 3].isValid())
+            if (!_row_block[row].isValid() || 
+                !_column_block[col].isValid() || 
+                !_xy_block[row / 3][col / 3].isValid())
                 return false;
         }
     }
@@ -172,16 +168,16 @@ void CScene::play()
     while (1)
     {
         key = getch();
-        if ('0' <= key && '9' >= key)
+        if (key >= '0' && key <= '9')
         {
             CCommand oCommand(this);
-            if (!oCommand.excute(key - '0'))
+            if (!oCommand.execute(key - '0'))
             {
                 std::cout << "this number can't be modified." << std::endl;
             }
             else
             {
-                _vCommand.push_back(std::move(oCommand));
+                _vCommand.push_back(std::move(oCommand));  // XXX: move without move constructor
                 show();
                 continue;
             }
@@ -189,7 +185,7 @@ void CScene::play()
 
         switch (key)
         {
-        case 0x1B: //ESC
+        case 0x1B: // ESC
         {       
             std::cout << "quit game ? [Y/N]" << std::endl;
             std::string strInput;
@@ -202,7 +198,7 @@ void CScene::play()
                 break;
             }
         }
-        case 0x75: //u
+        case 0x75: // u
         {
             if (_vCommand.empty())
                 std::cout << "no more action to undo." << std::endl;
@@ -215,23 +211,23 @@ void CScene::play()
             }
             break;
         }
-        case 0x61: //a
+        case 0x61: // a
             _cur_point.x = (_cur_point.x - 1) < 0 ? 0 : _cur_point.x - 1;
             show();
             break;
-        case 0x64: //d
+        case 0x64: // d
             _cur_point.x = (_cur_point.x + 1) > 8 ? 8 : _cur_point.x + 1;
             show();
             break;
-        case 0x73: //s
+        case 0x73: // s
             _cur_point.y = (_cur_point.y + 1) > 8 ? 8 : _cur_point.y + 1;
             show();
             break;
-        case 0x77: //w
+        case 0x77: // w
             _cur_point.y = (_cur_point.y - 1) < 0 ? 0 : _cur_point.y - 1;
             show();
             break;
-        case 0x0D: //enter
+        case 0x0D: // enter
             if (isComplete())
             {
                 std::cout << "congratulation! you win!" << std::endl;
@@ -249,9 +245,10 @@ void CScene::play()
     }
 }
 
-//一个场景可以多次被初始化
+// 一个场景可以多次被初始化
 void CScene::generate()
 {
+    // XXX: pseudo random
     static char map_pattern[10][10] = {
         "ighcabfde",
         "cabfdeigh",
@@ -263,30 +260,24 @@ void CScene::generate()
         "bcaefdhig",
         "efdhigbca"};
 
-    std::vector<char> v;
-    for (int i = 0; i < 9; ++i)
-    {
-        v.push_back('a' + i);
-    }
+    std::vector<char> v = {'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i'};
 
-    //产生字母到数字的随机映射
-    std::map<char, int> hash_map;
+    // 产生字母到数字的随机映射
+    std::unordered_map<char, int> hash_map;
     for (int i = 1; i <= 9; ++i)
     {
         int r = random(0, v.size() - 1);
-        char key = v[r];
+        hash_map[v[r]] = i;
         v.erase(v.begin() + r);
-
-        hash_map[key] = i;
     }
 
-    //填入场景
+    // 填入场景
     for (int row = 0; row < 9; ++row)
     {
-        for (int column = 0; column < 9; ++column)
+        for (int col = 0; col < 9; ++col)
         {
-            point_t point = {row, column};
-            char key = map_pattern[row][column];
+            point_t point = {row, col};
+            char key = map_pattern[row][col];
             setValue(point, hash_map[key]);
         }
     }
@@ -299,7 +290,7 @@ void CScene::generate()
 bool CScene::setPointValue(const point_t &stPoint, const int nValue)
 {
     auto point = _map[stPoint.x + stPoint.y * 9];
-    if (ERASED == point.state)
+    if (State::ERASED == point.state)
     {
         _cur_point = stPoint;
         setValue(nValue);
