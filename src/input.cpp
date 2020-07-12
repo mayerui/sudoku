@@ -12,10 +12,15 @@ int inputDifficulty()
     std::string cmd;
     while (1)
     {
-        std::cout << "设置难度：1简单 2普通 3困难" << std::endl;
+        while(1)
+        {
+            std::cout << "设置难度：1简单 2普通 3困难" << std::endl;
 
-        std::cin >> cmd;
-
+            std::cin >> cmd;
+            if( cmd == "1" || cmd == "2" || cmd == "3" )
+                break;
+            std::cout << "输入错误！" << std::endl;
+        }
         Difficulty difficulty = static_cast<Difficulty>(std::stoi(cmd));
 
         switch (difficulty)
