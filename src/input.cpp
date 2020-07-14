@@ -1,4 +1,4 @@
-﻿#include <iostream>
+#include <iostream>
 #include <sstream>
 #include <string>
 #include "common.h"
@@ -10,33 +10,39 @@ int inputDifficulty()
     cls();
 
     std::string cmd;
-    while (1)
+    int need_erase_grids = 0;
+    while (true)
     {
-        while(1)
-        {
-            std::cout << "设置难度：1简单 2普通 3困难" << std::endl;
+        std::cout << "设置难度：1简单 2普通 3困难" << std::endl;
 
-            std::cin >> cmd;
-            if( cmd == "1" || cmd == "2" || cmd == "3" )
+        std::cin >> cmd;
+
+        try
+        {
+            Difficulty difficulty = static_cast<Difficulty>(std::stoi(cmd));
+            switch (difficulty)
+            {
+            case Difficulty::EASY:
+                need_erase_grids = 20;
                 break;
-            std::cout << "输入错误！" << std::endl;
+            case Difficulty::NORMAL:
+                need_erase_grids = 35;
+                break;
+            case Difficulty::HARD:
+                need_erase_grids = 50;
+                break;
+            }
         }
-        Difficulty difficulty = static_cast<Difficulty>(std::stoi(cmd));
-
-        switch (difficulty)
+        catch(...) 
         {
-        case Difficulty::EASY:
-            return 20;
-        case Difficulty::NORMAL:
-            return 35;
-        case Difficulty::HARD:
-            return 50;
-        default:
-            std::cout << "输入错误！" << std::endl;
-            continue;
+            need_erase_grids = 0;
         }
+
+        if (need_erase_grids > 0)
+            break;
+
+        std::cout << "输入错误！" << std::endl;
     }
 
-    assert(0);
-    return 0;
+    return need_erase_grids;
 }
