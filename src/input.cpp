@@ -1,4 +1,4 @@
-﻿#include <iostream>
+#include <iostream>
 #include <sstream>
 #include <string>
 #include "common.h"
@@ -10,28 +10,39 @@ int inputDifficulty()
     cls();
 
     std::string cmd;
-    while (1)
+    int need_erase_grids = 0;
+    while (true)
     {
         std::cout << "设置难度：1简单 2普通 3困难" << std::endl;
 
         std::cin >> cmd;
 
-        Difficulty difficulty = static_cast<Difficulty>(std::stoi(cmd));
-
-        switch (difficulty)
+        try
         {
-        case Difficulty::EASY:
-            return 20;
-        case Difficulty::NORMAL:
-            return 35;
-        case Difficulty::HARD:
-            return 50;
-        default:
-            std::cout << "输入错误！" << std::endl;
-            continue;
+            Difficulty difficulty = static_cast<Difficulty>(std::stoi(cmd));
+            switch (difficulty)
+            {
+            case Difficulty::EASY:
+                need_erase_grids = 20;
+                break;
+            case Difficulty::NORMAL:
+                need_erase_grids = 35;
+                break;
+            case Difficulty::HARD:
+                need_erase_grids = 50;
+                break;
+            }
         }
+        catch(...) 
+        {
+            need_erase_grids = 0;
+        }
+
+        if (need_erase_grids > 0)
+            break;
+
+        std::cout << "输入错误！" << std::endl;
     }
 
-    assert(0);
-    return 0;
+    return need_erase_grids;
 }
