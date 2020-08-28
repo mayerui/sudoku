@@ -37,22 +37,9 @@ void CScene::show() const
 
 void CScene::printUnderline(int line_no) const
 {
-    std::string underline;
-
     for (int colunm = 0; colunm < 9; ++colunm)
-    {
-        if (_cur_point.y == line_no && _cur_point.x == colunm)
-            underline += "--^-";
-        else
-            underline += "----";
-    }
-    underline += '-';
-
-    for (int i = 0; i < 4; i++) {
-        underline[i * 12] = ((line_no + 1) % 3 == 0) ? '+' : '|';
-    }
-
-    std::cout << underline.c_str() << std::endl;
+        std::cout << "\u254B" << "\u2501" << ((_cur_point.y == line_no && _cur_point.x == colunm)?"^":"\u2501") << "\u2501";
+    std::cout << "\u254B" << std::endl;
 }
 
 void CScene::init()
