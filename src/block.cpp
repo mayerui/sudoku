@@ -39,18 +39,18 @@ bool CBlock::isFull() const
 
 void CBlock::print() const
 {
-    std::cout << "| ";
+    std::cout << "\u2503" << " ";
     for (int i = 0; i < _count; ++i)
     {
         auto number = *(_numbers[i]);
         if (0 == number.value)
-            std::cout << ' ' << " | ";
+            std::cout << ' ' << " \u2503 ";
         else
         {
             if (number.state == State::ERASED)
-                std::cout << Color::Modifier(Color::FG_GREEN) << number.value << Color::Modifier(Color::RESET) << " | ";
+                std::cout << Color::Modifier(Color::FG_GREEN) << number.value << Color::Modifier(Color::RESET) << " \u2503 ";
             else
-                std::cout << number.value << " | ";
+                std::cout << number.value << " \u2503 ";
         }
     }
     std::cout << std::endl;
