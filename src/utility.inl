@@ -28,9 +28,11 @@ inline int AverageRandom(int min, int max)
 
 #ifdef _WIN32
 #include <conio.h>
-#else
+#elif __linux__
 #include <termio.h>
 #include <cstdio>
+#elif __APPLE__
+#include <termios.h>
 inline char getch(void)
 {
     struct termios tmtemp, tm;
