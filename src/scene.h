@@ -35,7 +35,6 @@ class CScene
     void printUnderline(int line_no = -1) const;
 
 private:
-    int _index;
     int _max_column;
     point_t _cur_point;
     CBlock _column_block[9];

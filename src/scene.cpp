@@ -10,9 +10,8 @@
 #include "utility.inl"
 
 CScene::CScene(int index)
-    : _index(index),
-      _max_column(pow(index, 2)),
-      _cur_point({0, 0})
+    : _max_column(pow(index, 2))
+    , _cur_point({0, 0})
 {
     init();
 }
