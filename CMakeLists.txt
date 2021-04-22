@@ -1,4 +1,4 @@
-CMAKE_MINIMUM_REQUIRED(VERSION 2.8) # cmake最低版本要求
+CMAKE_MINIMUM_REQUIRED(VERSION 3.12) # cmake最低版本要求
 
 PROJECT(sudoku)    # 工程名 CppTemplate
 
