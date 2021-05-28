@@ -36,9 +36,18 @@ void CScene::show() const
 
 void CScene::printUnderline(int line_no) const
 {
-    for (int colunm = 0; colunm < 9; ++colunm)
-        std::cout << "\u254B" << "\u2501" << ((_cur_point.y == line_no && _cur_point.x == colunm)?"^":"\u2501") << "\u2501";
-    std::cout << "\u254B" << std::endl;
+    if ((line_no + 1) % 3 == 0)
+    {
+        for (int colunm = 0; colunm < 9; ++colunm)
+            std::cout << ((colunm % 3 == 0) ? "\u254B" : "\u253F") << "\u2501" << ((_cur_point.y == line_no && _cur_point.x == colunm) ? "^" : "\u2501") << "\u2501";
+        std::cout << "\u254B" << std::endl;
+    }
+    else
+    {
+        for (int colunm = 0; colunm < 9; ++colunm)
+            std::cout << ((colunm % 3 == 0) ? "\u2542" : "\u253C") << "\u2500" << ((_cur_point.y == line_no && _cur_point.x == colunm) ? "^" : "\u2500") << "\u2500";
+        std::cout << "\u2542" << std::endl;
+    }
 }
 
 void CScene::init()
@@ -209,7 +218,7 @@ void CScene::play()
     char key = '\0';
     while (1)
     {
-        key = getch();
+        key = _getch();
         if (key >= '0' && key <= '9')
         {
             CCommand oCommand(this);

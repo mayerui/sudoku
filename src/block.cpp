@@ -43,14 +43,15 @@ void CBlock::print() const
     for (int i = 0; i < _count; ++i)
     {
         auto number = *(_numbers[i]);
+        auto line = ((i + 1) % 3 == 0) ? " \u2503 " : " \u2502 ";
         if (0 == number.value)
-            std::cout << ' ' << " \u2503 ";
+            std::cout << ' ' << line;
         else
         {
             if (number.state == State::ERASED)
-                std::cout << Color::Modifier(Color::FG_GREEN) << number.value << Color::Modifier(Color::RESET) << " \u2503 ";
+                std::cout << Color::Modifier(Color::FG_GREEN) << number.value << Color::Modifier(Color::RESET) << line;
             else
-                std::cout << number.value << " \u2503 ";
+                std::cout << number.value << line;
         }
     }
     std::cout << std::endl;
