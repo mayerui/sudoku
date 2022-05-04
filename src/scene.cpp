@@ -18,6 +18,7 @@ CScene::CScene(int index)
 
 CScene::~CScene()
 {
+    if(keyMap) delete keyMap;
 }
 
 void CScene::show() const
@@ -31,6 +32,20 @@ void CScene::show() const
         CBlock block = _row_block[row];
         block.print();
         printUnderline(row);
+    }
+}
+
+void CScene::setMode(KeyMode mode)
+{
+    switch (mode)
+    {
+    case KeyMode::NORMAL:
+        keyMap = new Normal;
+        break;
+
+    case KeyMode::VIM:
+        keyMap = new Vim;
+        break;
     }
 }
 
@@ -224,73 +239,71 @@ void CScene::play()
                 continue;
             }
         }
-
-        switch (key)
+        if (key == keyMap->ESC)
         {
-        case 0x1B: // ESC
-        {       
-            std::cout << "quit game ? [Y/N]" << std::endl;
+            message("quit game ? [Y/N]");
             std::string strInput;
             std::cin >> strInput;
-            if (strInput[0] == 'y' || strInput[0] == 'Y') {
-                std::cout << "do you want to save the game progress ? [Y/N]" << std::endl;
+            if (strInput[0] == 'y' || strInput[0] == 'Y')
+            {
+                message("do you want to save the game progress ? [Y/N]");
                 std::cin >> strInput;
-                if (strInput[0] == 'y' || strInput[0] == 'Y') {
-                    std::cout << "input path of the progress file: ";
+                if (strInput[0] == 'y' || strInput[0] == 'Y')
+                {
+                    message("input path of the progress file: ", false);
                     std::cin >> strInput;
                     save(strInput.c_str());
                 }
                 exit(0);
-            }
-            else
+            } else
             {
-                std::cout << "continue." << std::endl;
-                break;
+                message("continue.");
             }
         }
-        case 0x75: // u
+        else if (key == keyMap->U)
         {
             if (_vCommand.empty())
-                std::cout << "no more action to undo." << std::endl;
+                message("no more action to undo.");
             else
             {
-                CCommand &oCommand = _vCommand.back();
+                CCommand& oCommand = _vCommand.back();
                 oCommand.undo();
                 _vCommand.pop_back();
                 show();
             }
-            break;
         }
-        case 0x61: // a
+        else if (key == keyMap->LEFT)
+        {
             _cur_point.x = (_cur_point.x - 1) < 0 ? 0 : _cur_point.x - 1;
             show();
-            break;
-        case 0x64: // d
+        }
+        else if (key == keyMap->RIGHT)
+        {
             _cur_point.x = (_cur_point.x + 1) > 8 ? 8 : _cur_point.x + 1;
             show();
-            break;
-        case 0x73: // s
+        }
+        else if (key == keyMap->DOWN)
+        {
             _cur_point.y = (_cur_point.y + 1) > 8 ? 8 : _cur_point.y + 1;
             show();
-            break;
-        case 0x77: // w
+        }
+        else if (key == keyMap->UP)
+        {
             _cur_point.y = (_cur_point.y - 1) < 0 ? 0 : _cur_point.y - 1;
             show();
-            break;
-        case 0x0D: // enter
+        }
+        else if (key == keyMap->ENTER)
+        {
             if (isComplete())
             {
-                std::cout << "congratulation! you win!" << std::endl;
+                message("congratulation! you win!");
                 getchar();
                 exit(0);
             }
             else
             {
-                std::cout << "sorry, not completed." << std::endl;
+                message("sorry, not completed.");
             }
-            break;
-        default:
-            break;
         }
     }
 }

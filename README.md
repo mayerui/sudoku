@@ -6,14 +6,14 @@ C++ 实现的跨平台数独游戏，命令行操作易上手，可以在开发�
 @ChungZH @Gusabary @lingdianlink @RoninKagome
 
 ## 特性
-1. 跨平台 : Linux/Windows/macOs
+1. 跨平台 : Linux/Windows/macOS
 
 ## 依赖
 1. cmake 3.12及以上
 
 ## 构建
 1. Windows 下一键编译: `build.bat`
-2. macOs/Linux 下一键构建: `sh build.sh` （可能需要 `chmod +x build.sh` 赋予执行权限）
+2. macOS/Linux 下一键构建: `sh build.sh` （可能需要 `chmod +x build.sh` 赋予执行权限）
 
 ## 运行
 构建步骤生成的 `sudoku` 可执行文件在 `bin` 目录下
@@ -24,20 +24,28 @@ C++ 实现的跨平台数独游戏，命令行操作易上手，可以在开发�
 ```
 
 ## 操作说明
-- w 光标上移↑
-- a 光标左移←
-- s 光标下移↓
-- d 光标右移→
 - 0 删除已填入数字
 - u 撤销上一步操作
 - enter 尝试通关
 - esc 退出游戏
 
+### 普通模式
+- w 光标上移↑
+- a 光标左移←
+- s 光标下移↓
+- d 光标右移→
+
+### VIM模式
+- k 光标上移↑
+- h 光标左移←
+- j 光标下移↓
+- l 光标右移→
+
 ## 项目结构
 ```bash
 │--.gitignore  
 │--build.bat        // Windows 一键编译脚本  
-│--build.sh         // Linux 一键编译脚本  
+│--build.sh         // Linux/macOS 一键编译脚本  
 │--CMakeLists.txt   // CMake 项目文件  
 │--README.md     
 └--src              // 源代码目录  
