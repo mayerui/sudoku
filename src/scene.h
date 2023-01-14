@@ -1,4 +1,4 @@
-#ifndef _SUDOKU_SCENE_H_
+﻿#ifndef _SUDOKU_SCENE_H_
 #define _SUDOKU_SCENE_H_
 
 #include <iostream>
@@ -28,6 +28,8 @@ class CScene
     void save(const char *filename);
     void load(const char *filename);
 
+    void setMode(KeyMode mode);
+
   private:
     void init(); // 将每个格子的指针放到block里面
     void setValue(const int);
@@ -35,6 +37,7 @@ class CScene
     void printUnderline(int line_no = -1) const;
 
 private:
+    KeyMap *keyMap{};
     int _max_column;
     point_t _cur_point;
     CBlock _column_block[9];

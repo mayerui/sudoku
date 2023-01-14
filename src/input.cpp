@@ -1,4 +1,4 @@
-#include <iostream>
+﻿#include <iostream>
 #include <sstream>
 #include <string>
 #include "common.h"
@@ -45,4 +45,25 @@ int inputDifficulty()
     }
 
     return need_erase_grids;
+}
+
+KeyMode inputKeyMode()
+{
+    std::string mode;
+    do
+    {
+        message("设置按键模式：1正常 2VIM");
+
+        std::cin >> mode;
+
+        try
+        {
+            KeyMode kmd = static_cast<KeyMode>(std::stoi(mode));
+            return kmd;
+        } catch (...)
+        {}
+        
+        message("输入错误！");
+
+    } while (true);
 }

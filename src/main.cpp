@@ -40,6 +40,8 @@ int main(int argc, char **argv)
         return 0;
     }
 
+    scene.setMode(inputKeyMode());
+
     scene.play();
 #endif
 
