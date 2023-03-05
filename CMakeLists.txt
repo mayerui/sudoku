@@ -40,5 +40,4 @@ add_executable(sudoku  # 输出名为sudoku的可执行文件
 # 也可以这么写
 # add_executable(chess  # 输出名为chess的可执行文件
 #    ./src/main.cpp
-#    ./src/utils.cpp
 # )
