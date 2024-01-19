@@ -1,6 +1,7 @@
 #include <cstring>
 #include <iostream>
 
+#include "i18n.h"
 #include "input.h"
 #include "scene.h"
 #include "test.h"
@@ -26,28 +27,29 @@ int main(int argc, char **argv)
     test_case1();
     getchar();
 #else
-    CScene scene;
 
-    if (argc == 1) {
-        int eraseGridNumber = inputDifficulty();
-        scene.generate();
-        scene.eraseRandomGrids(eraseGridNumber);
-    }
-    else if (argc == 3 && !strcmp(argv[1], "-l")) {
-      // load saved game progress
-      if (!scene.load(argv[2])) {
-        message("load progress failed!");
-        return 0;
-      }
-    }
-    else {
-        printHelp();
-        return 0;
-    }
+  CScene scene;
 
-    scene.setMode(inputKeyMode());
+  if (argc == 1) {
+    InputLanguage();
+    int eraseGridNumber = inputDifficulty();
+    scene.generate();
+    scene.eraseRandomGrids(eraseGridNumber);
+  } else if (argc == 3 && !strcmp(argv[1], "-l")) {
+    // load saved game progress
+    if (!scene.load(argv[2])) {
+      message(I18n::Instance().Get(I18n::Key::LOAD_PROGRESS_FAIL));
+      return 0;
+    }
+    InputLanguage();
+  } else {
+    printHelp();
+    return 0;
+  }
 
-    scene.play();
+  scene.setMode(inputKeyMode());
+
+  scene.play();
 #endif
 
     return 0;

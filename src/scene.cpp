@@ -11,6 +11,7 @@
 
 #include "common.h"
 #include "display_symbol.h"
+#include "i18n.h"
 #include "utility.inl"
 
 CScene::CScene(int index)
@@ -257,41 +258,39 @@ void CScene::play()
         }
         if (key == keyMap->ESC)
         {
-            message("quit game ? [Y/N]");
+            message(I18n::Instance().Get(I18n::Key::ASK_QUIT));
             std::string strInput;
             std::cin >> strInput;
             if (strInput[0] == 'y' || strInput[0] == 'Y')
             {
-                message("do you want to save the game progress ? [Y/N]");
+                message(I18n::Instance().Get(I18n::Key::ASK_SAVE));
                 std::cin >> strInput;
                 if (strInput[0] == 'y' || strInput[0] == 'Y') {
                   do {
-                    message("input path of the progress file: ", false);
+                    message(I18n::Instance().Get(I18n::Key::ASK_SAVE_PATH));
                     std::cin >> strInput;
                     if (!save(strInput.c_str())) {
-                      message("This file is already exist.");
+                      message(I18n::Instance().Get(I18n::Key::FILE_EXIST_ERROR));
                     } else {
                       break;
                     }
                   } while (true);
                 }
                 exit(0);
-            } else
-            {
-                message("continue.");
+            } else {
+              message(I18n::Instance().Get(I18n::Key::CONTINUE));
             }
         }
         else if (key == keyMap->U)
         {
-            if (_vCommand.empty())
-                message("no more action to undo.");
-            else
-            {
-                CCommand& oCommand = _vCommand.back();
-                oCommand.undo();
-                _vCommand.pop_back();
-                show();
-            }
+          if (_vCommand.empty()) {
+            message(I18n::Instance().Get(I18n::Key::UNDO_ERROR));
+          } else {
+            CCommand &oCommand = _vCommand.back();
+            oCommand.undo();
+            _vCommand.pop_back();
+            show();
+          }
         }
         else if (key == keyMap->LEFT)
         {
@@ -315,16 +314,13 @@ void CScene::play()
         }
         else if (key == keyMap->ENTER)
         {
-            if (isComplete())
-            {
-                message("congratulation! you win!");
-                getchar();
-                exit(0);
-            }
-            else
-            {
-                message("sorry, not completed.");
-            }
+          if (isComplete()) {
+            message(I18n::Instance().Get(I18n::Key::CONGRATULATION));
+            getchar();
+            exit(0);
+          } else {
+            message(I18n::Instance().Get(I18n::Key::NOT_COMPLETED));
+          }
         }
     }
 }
