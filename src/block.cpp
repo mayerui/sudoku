@@ -1,8 +1,12 @@
-﻿#include <cassert>
-#include <iostream>
-#include "common.h"
 #include "block.h"
+
+#include <cassert>
+#include <iostream>
+
 #include "color.h"
+#include "common.h"
+#include "display_symbol.h"
+
 
 CBlock::CBlock()
     : _count(0) {}
@@ -37,23 +41,21 @@ bool CBlock::isFull() const
     return true;
 }
 
-void CBlock::print() const
-{
-    std::cout << "\u2503" << " ";
-    for (int i = 0; i < _count; ++i)
-    {
-        auto number = *(_numbers[i]);
-        if (0 == number.value)
-            std::cout << ' ' << " \u2503 ";
-        else
-        {
-            if (number.state == State::ERASED)
-                std::cout << Color::Modifier(Color::FG_GREEN) << number.value << Color::Modifier(Color::RESET) << " \u2503 ";
-            else
-                std::cout << number.value << " \u2503 ";
-        }
+void CBlock::print() const {
+  std::cout << PIPE << " ";
+  for (int i = 0; i < _count; ++i) {
+    auto number = *(_numbers[i]);
+    if (0 == number.value)
+      std::cout << ' ' << " " << PIPE << " ";
+    else {
+      if (number.state == State::ERASED)
+        std::cout << Color::Modifier(Color::FG_GREEN) << number.value
+                  << Color::Modifier(Color::RESET) << " " << PIPE << " ";
+      else
+        std::cout << number.value << " " << PIPE << " ";
     }
-    std::cout << std::endl;
+  }
+  std::cout << std::endl;
 }
 
 void CBlock::push_back(point_value_t *point)

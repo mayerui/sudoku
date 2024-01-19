@@ -1,5 +1,7 @@
-﻿#ifndef _SUDOKU_BLOCK_H_
+#ifndef _SUDOKU_BLOCK_H_
 #define _SUDOKU_BLOCK_H_
+
+#include "common.h"
 
 // 数独行政区域类
 class CBlock

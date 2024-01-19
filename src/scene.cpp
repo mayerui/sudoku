@@ -10,8 +10,8 @@
 #include <vector>
 
 #include "common.h"
+#include "display_symbol.h"
 #include "utility.inl"
-
 
 CScene::CScene(int index)
     : _max_column(pow(index, 2))
@@ -53,11 +53,13 @@ void CScene::setMode(KeyMode mode)
     }
 }
 
-void CScene::printUnderline(int line_no) const
-{
-    for (int colunm = 0; colunm < 9; ++colunm)
-        std::cout << "\u254B" << "\u2501" << ((_cur_point.y == line_no && _cur_point.x == colunm)?"^":"\u2501") << "\u2501";
-    std::cout << "\u254B" << std::endl;
+void CScene::printUnderline(int line_no) const {
+  auto is_curline = (_cur_point.y == line_no);
+  for (int colunm = 0; colunm < 9; ++colunm) {
+    auto third_symbol = (is_curline && _cur_point.x == colunm) ? ARROW : LINE;
+    std::cout << CORNER << LINE << third_symbol << LINE;
+  }
+  std::cout << CORNER << std::endl;
 }
 
 void CScene::init()
