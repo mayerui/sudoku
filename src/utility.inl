@@ -33,6 +33,10 @@ inline void message(const char* msg = "", bool lf = true)
     if (lf) std::cout << std::endl;
 }
 
+inline void message(const std::string& msg, bool lf = true) {
+  message(msg.c_str(), lf);
+}
+
 #ifdef _WIN32
 #include <conio.h>
 #else
