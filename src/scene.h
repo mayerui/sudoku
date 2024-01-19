@@ -25,8 +25,8 @@ class CScene
     bool isComplete();
 
     void play();
-    void save(const char *filename);
-    void load(const char *filename);
+    bool save(const char *filename);
+    bool load(const char *filename);
 
     void setMode(KeyMode mode);
 

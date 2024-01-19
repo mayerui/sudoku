@@ -1,9 +1,11 @@
-﻿#include <iostream>
-#include <string>
 #include <cstring>
-#include "scene.h"
+#include <iostream>
+
 #include "input.h"
+#include "scene.h"
 #include "test.h"
+#include "utility.inl"
+
 
 #define _TEST_ 0
 
@@ -32,8 +34,11 @@ int main(int argc, char **argv)
         scene.eraseRandomGrids(eraseGridNumber);
     }
     else if (argc == 3 && !strcmp(argv[1], "-l")) {
-        // load saved game progress
-        scene.load(argv[2]);
+      // load saved game progress
+      if (!scene.load(argv[2])) {
+        message("load progress failed!");
+        return 0;
+      }
     }
     else {
         printHelp();

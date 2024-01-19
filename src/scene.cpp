@@ -1,12 +1,16 @@
-﻿#include <cmath>
-#include <iostream>
-#include <fstream>
+#include "scene.h"
+
 #include <memory.h>
-#include <map>
+
+#include <cmath>
+#include <filesystem>
+#include <fstream>
+#include <iostream>
 #include <unordered_map>
 #include <vector>
+
 #include "common.h"
-#include "scene.h"
+#include "display_symbol.h"
 #include "utility.inl"
 
 CScene::CScene(int index)
@@ -49,11 +53,13 @@ void CScene::setMode(KeyMode mode)
     }
 }
 
-void CScene::printUnderline(int line_no) const
-{
-    for (int colunm = 0; colunm < 9; ++colunm)
-        std::cout << "\u254B" << "\u2501" << ((_cur_point.y == line_no && _cur_point.x == colunm)?"^":"\u2501") << "\u2501";
-    std::cout << "\u254B" << std::endl;
+void CScene::printUnderline(int line_no) const {
+  auto is_curline = (_cur_point.y == line_no);
+  for (int colunm = 0; colunm < 9; ++colunm) {
+    auto third_symbol = (is_curline && _cur_point.x == colunm) ? ARROW : LINE;
+    std::cout << CORNER << LINE << third_symbol << LINE;
+  }
+  std::cout << CORNER << std::endl;
 }
 
 void CScene::init()
@@ -166,9 +172,13 @@ bool CScene::isComplete()
     return true;
 }
 
-void CScene::save(const char *filename) {
+bool CScene::save(const char *filename) {
+  auto filepath = std::filesystem::path(filename);
+  if (std::filesystem::exists(filepath)) {
+    return false;
+  }
+
     std::fstream fs;
-    // TODO: check whether the file has existed
     fs.open(filename, std::fstream::in | std::fstream::out | std::fstream::app);
 
     // save _map
@@ -189,11 +199,16 @@ void CScene::save(const char *filename) {
     }
 
     fs.close();
+    return true;
 }
 
-void CScene::load(const char *filename) {
+bool CScene::load(const char *filename) {
+  auto filepath = std::filesystem::path(filename);
+  if (!std::filesystem::exists(filepath)) {
+    return false;
+  }
+
     std::fstream fs;
-    // TODO: check whether the file has existed
     fs.open(filename, std::fstream::in | std::fstream::out | std::fstream::app);
 
     // load _map
@@ -215,6 +230,7 @@ void CScene::load(const char *filename) {
         fs >> point.x >> point.y >> preValue >> curValue;
         _vCommand.emplace_back(this, point, preValue, curValue);
     }
+    return true;
 }
 
 void CScene::play()
@@ -248,11 +264,16 @@ void CScene::play()
             {
                 message("do you want to save the game progress ? [Y/N]");
                 std::cin >> strInput;
-                if (strInput[0] == 'y' || strInput[0] == 'Y')
-                {
+                if (strInput[0] == 'y' || strInput[0] == 'Y') {
+                  do {
                     message("input path of the progress file: ", false);
                     std::cin >> strInput;
-                    save(strInput.c_str());
+                    if (!save(strInput.c_str())) {
+                      message("This file is already exist.");
+                    } else {
+                      break;
+                    }
+                  } while (true);
                 }
                 exit(0);
             } else
