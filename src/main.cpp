@@ -4,6 +4,7 @@
 #include "i18n.h"
 #include "input.h"
 #include "scene.h"
+#include "system_env.hpp"
 #include "test.h"
 #include "utility.inl"
 
@@ -27,6 +28,8 @@ int main(int argc, char **argv)
     test_case1();
     getchar();
 #else
+
+  SetSystemEnv();
 
   CScene scene;
 
