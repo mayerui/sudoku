@@ -17,18 +17,18 @@ I18n::Dict english = {
     {I18n::Key::ASK_DIFFICULTY, "Select difficulty: 1 Easy 2 Normal 3 Hard"},
 };
 I18n::Dict chinese = {
-    {I18n::Key::ASK_KEY_MAP, "���ð���ģʽ: 1 WASD 2 VIM"},
-    {I18n::Key::INPUT_ERROR, "�������!"},
-    {I18n::Key::LOAD_PROGRESS_FAIL, "���ش浵ʧ��!"},
-    {I18n::Key::ASK_QUIT, "�˳���Ϸ? [Y/N]"},
-    {I18n::Key::ASK_SAVE, "�������? [Y/N]"},
-    {I18n::Key::ASK_SAVE_PATH, "����浵�ļ�·��:"},
-    {I18n::Key::FILE_EXIST_ERROR, "�ļ��Ѵ���"},
-    {I18n::Key::CONTINUE, "����"},
-    {I18n::Key::UNDO_ERROR, "û�п��Գ����Ķ���"},
-    {I18n::Key::CONGRATULATION, "��ϲ! ��⿪������!"},
-    {I18n::Key::NOT_COMPLETED, "�Բ���, ��δ���"},
-    {I18n::Key::ASK_DIFFICULTY, "�����Ѷ�: 1�� 2��ͨ 3����"},
+    {I18n::Key::ASK_KEY_MAP, "设置按键模式: 1 WASD 2 VIM"},
+    {I18n::Key::INPUT_ERROR, "输入错误!"},
+    {I18n::Key::LOAD_PROGRESS_FAIL, "加载存档失败!"},
+    {I18n::Key::ASK_QUIT, "退出游戏? [Y/N]"},
+    {I18n::Key::ASK_SAVE, "保存进度? [Y/N]"},
+    {I18n::Key::ASK_SAVE_PATH, "输入存档文件路径:"},
+    {I18n::Key::FILE_EXIST_ERROR, "文件已存在"},
+    {I18n::Key::CONTINUE, "继续"},
+    {I18n::Key::UNDO_ERROR, "没有可以撤销的动作"},
+    {I18n::Key::CONGRATULATION, "恭喜! 你解开了谜题!"},
+    {I18n::Key::NOT_COMPLETED, "对不起, 还未完成"},
+    {I18n::Key::ASK_DIFFICULTY, "设置难度: 1简单 2普通 3困难"},
 };
 
 // Default English
