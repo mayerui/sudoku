@@ -6,7 +6,10 @@ C++ 实现的跨平台数独游戏，命令行操作易上手，可以在开发�
 @ChungZH @Gusabary @lingdianlink @RoninKagome
 
 ## 特性
-1. 跨平台 : Linux/Windows/macOS
+1. 跨平台/编译器 : Linux/Windows/macOS
+2. 多语言：English/中文
+3. 无第三方库依赖
+4. 控制台运行
 
 ## 依赖
 1. cmake 3.12及以上
