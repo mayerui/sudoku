@@ -43,13 +43,15 @@ inline void message(const std::string& msg, bool lf = true) {
     #ifdef __linux__
     #include <termio.h>
     #include <cstdio>
+    #include <fcntl.h>  /* 使用fcntl */
     #elif __APPLE__
     #include <termios.h>
     #endif
     inline char getch(void)
     {
         struct termios tmtemp, tm;
-        char c;
+        // char c;
+        int c;
         int fd = 0;
         if (tcgetattr(fd, &tm) != 0)
         { /*获取当前的终端属性设置，并保存到tm结构体中*/
@@ -62,11 +64,28 @@ inline void message(const std::string& msg, bool lf = true) {
             return -1;
         }
         c = getchar();
+        if (c == 27)  /* ESC返回27，上下左右为(27,91,xx) 与ESC的27冲突 */
+        {
+            int back_flags = fcntl(fd, F_GETFL);
+            fcntl(fd, F_SETFL, back_flags | O_NONBLOCK);
+            c = getchar();
+            if (c == EOF)
+            {
+                c = 27; 
+            }
+            else
+            {
+                while ( (c = getchar()) != EOF) 
+                {
+                }
+            }
+            fcntl(fd, F_SETFL, back_flags);
+        }
         if (tcsetattr(fd, TCSANOW, &tm) != 0)
         { /*接收字符完毕后将终端设置回原来的属性*/
             return 0;
         }
-        return c;
+        return static_cast<char>(c);
     }
 #endif
 
