@@ -43,9 +43,10 @@ inline void message(const std::string& msg, bool lf = true) {
     #ifdef __linux__
     #include <termio.h>
     #include <cstdio>
-    #include <fcntl.h>  /* 使用fcntl */
+    #include <fcntl.h>
     #elif __APPLE__
     #include <termios.h>
+    #include <fcntl.h>
     #endif
     inline char getch(void)
     {
@@ -67,6 +68,7 @@ inline void message(const std::string& msg, bool lf = true) {
         if (c == 27)  /* ESC返回27，上下左右为(27,91,xx) 与ESC的27冲突 */
         {
             int back_flags = fcntl(fd, F_GETFL);
+            /*将fd设置为非阻塞的，没有输入时可以立即返回*/
             fcntl(fd, F_SETFL, back_flags | O_NONBLOCK);
             c = getchar();
             if (c == EOF)
