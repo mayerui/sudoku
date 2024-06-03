@@ -1,3 +1,7 @@
+# CMake
 build
 bin
+# IDE
 .vscode
+# clang
+.cache
