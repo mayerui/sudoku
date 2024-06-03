@@ -3,7 +3,7 @@
 #include <map>
 #include <string>
 
-enum class Language {
+enum class Language : uint32_t {
   ENGLISH,
   CHINESE,
   MAX,
