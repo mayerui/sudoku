@@ -51,7 +51,6 @@ inline void message(const std::string& msg, bool lf = true) {
     inline char getch(void)
     {
         struct termios tmtemp, tm;
-        // char c;
         int c;
         int fd = 0;
         if (tcgetattr(fd, &tm) != 0)
