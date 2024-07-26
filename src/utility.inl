@@ -88,6 +88,8 @@ inline void message(const std::string& msg, bool lf = true) {
         }
         return static_cast<char>(c);
     }
+
+    inline char _getch() { return getch(); }
 #endif
 
 inline void cls(void)

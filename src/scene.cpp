@@ -241,7 +241,7 @@ void CScene::play()
     char key = '\0';
     while (1)
     {
-        key = getch();
+        key = _getch();
         if (key >= '0' && key <= '9')
         {
             CCommand oCommand(this);
