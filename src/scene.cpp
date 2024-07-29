@@ -55,12 +55,35 @@ void CScene::setMode(KeyMode mode)
 }
 
 void CScene::printUnderline(int line_no) const {
-  auto is_curline = (_cur_point.y == line_no);
-  for (int colunm = 0; colunm < 9; ++colunm) {
-    auto third_symbol = (is_curline && _cur_point.x == colunm) ? ARROW : LINE;
-    std::cout << CORNER << LINE << third_symbol << LINE;
-  }
-  std::cout << CORNER << std::endl;
+    auto is_curline = (_cur_point.y == line_no);
+    // if(line_no == -1 || (line_no+1)%3 == 0) {
+    //     for (int colunm = 0; colunm < 9; ++colunm) {
+    //         auto third_symbol = (is_curline && _cur_point.x == colunm) ? ARROW : LINE;
+    //         std::cout << Color::Modifier(Color::BOLD, Color::BG_DEFAULT, Color::FG_RED) << CORNER << LINE << third_symbol << LINE << Color::Modifier();
+    //     }
+    //     std::cout << Color::Modifier(Color::BOLD, Color::BG_DEFAULT, Color::FG_RED) << CORNER << Color::Modifier()<< std::endl;
+    // } else {
+    //     for (int colunm = 0; colunm < 9; ++colunm) {
+    //         auto third_symbol = (is_curline && _cur_point.x == colunm) ? ARROW : LINE;
+    //         std::cout << CORNER << LINE << third_symbol << LINE;
+    //     }
+    //     std::cout << CORNER << std::endl;
+    // }
+    for (int colunm = 0; colunm < 9; ++colunm) {
+        if((colunm%3) == 0 || line_no == -1 || (line_no+1)%3 == 0) {
+            std::cout << Color::Modifier(Color::BOLD, Color::BG_DEFAULT, Color::FG_RED) << CORNER << Color::Modifier();
+        } else {
+            std::cout <<  CORNER;
+        }
+        auto third_symbol = (is_curline && _cur_point.x == colunm) ? ARROW : LINE;
+        if(line_no == -1 || (line_no+1)%3 == 0) {
+            std::cout << Color::Modifier(Color::BOLD, Color::BG_DEFAULT, Color::FG_RED) << LINE << third_symbol << LINE << Color::Modifier();
+        } else {
+            std::cout << LINE << third_symbol << LINE;
+        }
+    }
+    std::cout << Color::Modifier(Color::BOLD, Color::BG_DEFAULT, Color::FG_RED) << CORNER << Color::Modifier()<< std::endl;
+    // std::cout << CORNER << std::endl;
 }
 
 void CScene::init()
