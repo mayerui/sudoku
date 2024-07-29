@@ -13,7 +13,7 @@
 #include "display_symbol.h"
 #include "i18n.h"
 #include "utility.inl"
-
+#include "color.h"
 CScene::CScene(int index)
     : _max_column(pow(index, 2))
     , _cur_point({0, 0})
