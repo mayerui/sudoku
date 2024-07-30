@@ -5,11 +5,7 @@
 #include "input.h"
 #include "scene.h"
 #include "system_env.hpp"
-#include "test.h"
 #include "utility.inl"
-
-
-#define _TEST_ 0
 
 static void printHelp() {
     std::cout << std::endl;
@@ -24,11 +20,6 @@ static void printHelp() {
 
 int main(int argc, char **argv)
 {
-#if _TEST_
-    test_case1();
-    getchar();
-#else
-
   SetSystemEnv();
 
   CScene scene;
@@ -53,7 +44,6 @@ int main(int argc, char **argv)
   scene.setMode(inputKeyMode());
 
   scene.play();
-#endif
 
-    return 0;
+  return 0;
 }
