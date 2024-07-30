@@ -42,18 +42,34 @@ bool CBlock::isFull() const
 }
 
 void CBlock::print() const {
-  std::cout << PIPE << " ";
+  std::cout << Color::Modifier(Color::BOLD, Color::BG_DEFAULT, Color::FG_RED) << PIPE << Color::Modifier()<< " ";
   for (int i = 0; i < _count; ++i) {
     auto number = *(_numbers[i]);
-    if (0 == number.value)
+    if((i+1)%3 == 0) {
+      if (0 == number.value)
+        std::cout << ' ' << " " << Color::Modifier(Color::BOLD, Color::BG_DEFAULT, Color::FG_RED) << PIPE << Color::Modifier() << " ";
+      else {
+        if (number.state == State::ERASED)
+          std::cout << Color::Modifier(Color::BOLD, Color::BG_DEFAULT, Color::FG_GREEN) << number.value
+                    << Color::Modifier() << " " 
+                    << Color::Modifier(Color::BOLD, Color::BG_DEFAULT, Color::FG_RED) << PIPE 
+                    << Color::Modifier() << " ";
+        else
+          std::cout << number.value << " " << Color::Modifier(Color::BOLD, Color::BG_DEFAULT, Color::FG_RED) 
+                    << PIPE << Color::Modifier() << " ";
+      }
+    } else {
+      if (0 == number.value)
       std::cout << ' ' << " " << PIPE << " ";
-    else {
-      if (number.state == State::ERASED)
-        std::cout << Color::Modifier(Color::FG_GREEN) << number.value
-                  << Color::Modifier(Color::RESET) << " " << PIPE << " ";
-      else
-        std::cout << number.value << " " << PIPE << " ";
+      else {
+        if (number.state == State::ERASED)
+          std::cout << Color::Modifier(Color::BOLD, Color::BG_DEFAULT, Color::FG_GREEN) << number.value
+                    << Color::Modifier() << " " << PIPE << " ";
+        else
+          std::cout << number.value << " " << PIPE << " ";
+      }
     }
+    
   }
   std::cout << std::endl;
 }
