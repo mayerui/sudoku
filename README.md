@@ -3,7 +3,9 @@ C++ 实现的跨平台数独游戏，命令行操作易上手，可以在开发�
 欢迎通过pull request的方式来添加功能或修复缺陷。
 
 ## 感谢贡献者
-@ChungZH @Gusabary @lingdianlink @RoninKagome
+<a href="https://github.com/mayerui/sudoku/graphs/contributors">
+  <img src="https://contrib.rocks/image?repo=mayerui/sudoku" />
+</a>
 
 ## 特性
 1. 跨平台/编译器 : Linux/Windows/macOS
