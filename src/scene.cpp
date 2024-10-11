@@ -75,44 +75,42 @@ void CScene::printUnderline(int line_no) const {
 
 void CScene::init()
 {
-    memset(_map, UNSELECTED, sizeof _map);
+    memset(_map, UNSELECTED, sizeof(_map));
 
-    // column_block 所有列
-    for (int col = 0; col < _max_column; ++col)
+    int col = 0;
+    int row = 0;
+
+    for(col = 0; col < _max_column; ++col)
     {
         CBlock column_block;
 
-        for (int row = 0; row < _max_column; ++row)
+        for(row = 0; row < _max_column; ++row)
         {
-            column_block.push_back(_map + row * 9 + col);
+            column_block.push_back(_map + row * _max_column + col);
         }
+
         _column_block[col] = column_block;
     }
 
-    // row_block 所有行
-    for (int row = 0; row < _max_column; ++row)
+    for(row = 0; row < _max_column; ++row)
     {
         CBlock row_block;
 
-        for (int col = 0; col < _max_column; ++col)
+        for(col = 0; col < _max_column; ++col)
         {
-            row_block.push_back(_map + row * 9 + col);
+            row_block.push_back(_map + row * _max_column + col);
         }
+
         _row_block[row] = row_block;
     }
 
-    // xy_block 所有九宫格, [行][列]
-    for (int block_index = 0; block_index < _max_column; ++block_index)
-    {
-        CBlock xy_block;
 
-        int xy_begin = block_index / 3 * 27 + block_index % 3 * 3;
-        for (int i = 0; i < 3; i++) {
-            for (int j = 0; j < 3; j++) {
-                xy_block.push_back(_map + xy_begin + i * 9 + j);
-            }
+    for(row = 0; row < _max_column; ++row)
+    {
+        for(col = 0; col < _max_column; ++col)
+        {
+            _xy_block[row / 3][col / 3].push_back(_map + row * _max_column + col);
         }
-        _xy_block[block_index / 3][block_index % 3] = xy_block;
     }
 
     return;
