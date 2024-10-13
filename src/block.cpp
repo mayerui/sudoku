@@ -54,6 +54,11 @@ void CBlock::print() const {
                     << Color::Modifier() << " " 
                     << Color::Modifier(Color::BOLD, Color::BG_DEFAULT, Color::FG_RED) << PIPE 
                     << Color::Modifier() << " ";
+        else if (number.state == State::CONFLICT)
+          std::cout << Color::Modifier(Color::BOLD, Color::BG_DEFAULT, Color::FG_RED) << number.value
+                    << Color::Modifier() << " " 
+                    << Color::Modifier(Color::BOLD, Color::BG_DEFAULT, Color::FG_RED) << PIPE 
+                    << Color::Modifier() << " ";
         else
           std::cout << number.value << " " << Color::Modifier(Color::BOLD, Color::BG_DEFAULT, Color::FG_RED) 
                     << PIPE << Color::Modifier() << " ";
@@ -64,6 +69,9 @@ void CBlock::print() const {
       else {
         if (number.state == State::ERASED)
           std::cout << Color::Modifier(Color::BOLD, Color::BG_DEFAULT, Color::FG_GREEN) << number.value
+                    << Color::Modifier() << " " << PIPE << " ";
+        else if (number.state == State::CONFLICT)
+          std::cout << Color::Modifier(Color::BOLD, Color::BG_DEFAULT, Color::FG_RED) << number.value
                     << Color::Modifier() << " " << PIPE << " ";
         else
           std::cout << number.value << " " << PIPE << " ";

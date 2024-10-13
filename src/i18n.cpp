@@ -15,6 +15,7 @@ I18n::Dict english = {
     {I18n::Key::CONGRATULATION, "Congratulation! You Win!"},
     {I18n::Key::NOT_COMPLETED, "Sorry, not completed."},
     {I18n::Key::ASK_DIFFICULTY, "Select difficulty: 1 Easy 2 Normal 3 Hard"},
+    {I18n::Key::CONFLICT, "Warning! Conflict exists!"}
 };
 I18n::Dict chinese = {
     {I18n::Key::ASK_KEY_MAP, "设置按键模式: 1 WASD 2 VIM"},
@@ -29,6 +30,7 @@ I18n::Dict chinese = {
     {I18n::Key::CONGRATULATION, "恭喜! 你解开了谜题!"},
     {I18n::Key::NOT_COMPLETED, "对不起, 还未完成"},
     {I18n::Key::ASK_DIFFICULTY, "设置难度: 1简单 2普通 3困难"},
+    {I18n::Key::CONFLICT, "警告！存在冲突！"}
 };
 
 // Default English
