@@ -325,7 +325,8 @@ void CScene::play()
           if (isComplete()) {
             message(I18n::Instance().Get(I18n::Key::CONGRATULATION));
             getchar();
-            exit(0);
+            play();
+            //exit(0);
           } else {
             message(I18n::Instance().Get(I18n::Key::NOT_COMPLETED));
           }
