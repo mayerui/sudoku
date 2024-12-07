@@ -336,27 +336,92 @@ void CScene::play()
 // 一个场景可以多次被初始化
 void CScene::generate()
 {
-    // XXX: pseudo random
-    static char map_pattern[10][10] = {
-        "ighcabfde",
-        "cabfdeigh",
-        "fdeighcab",
-        "ghiabcdef",
-        "abcdefghi",
-        "defghiabc",
-        "higbcaefd",
-        "bcaefdhig",
-        "efdhigbca"};
+    std::vector<std::vector<int>> matrix;
+    for (int i = 0; i < 9; i++)
+        matrix.push_back(std::vector<int>(9, 0));
 
-    std::vector<char> v = {'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i'};
-
-    // 产生字母到数字的随机映射
-    std::unordered_map<char, int> hash_map;
-    for (int i = 1; i <= 9; ++i)
+    // 初始化三个nuit
+    // 2 6 5 | 0 0 0 | 0 0 0
+    // 3 4 1 | 0 0 0 | 0 0 0
+    // 8 9 7 | 0 0 0 | 0 0 0
+    // ---------------------
+    // 0 0 0 | 1 9 4 | 0 0 0
+    // 0 0 0 | 8 3 6 | 0 0 0
+    // 0 0 0 | 5 2 7 | 0 0 0
+    // ---------------------
+    // 0 0 0 | 0 0 0 | 3 4 5
+    // 0 0 0 | 0 0 0 | 9 6 2
+    // 0 0 0 | 0 0 0 | 7 8 1
+    for (int num = 0; num < 3; num++)
     {
-        int r = random(0, v.size() - 1);
-        hash_map[v[r]] = i;
-        v.erase(v.begin() + r);
+        std::vector<int> unit = shuffle_unit();
+        int start_index = num * 3;
+        for (int i = start_index; i < start_index+3; i++)
+            for (int j = start_index; j < start_index+3; j++)
+            {
+                matrix[i][j] = unit.back();
+                unit.pop_back();
+            }
+    }
+
+    // 统计空格数量
+    std::vector<std::tuple<int, int>> box_list;
+    for (int i = 0; i < 9; i++)
+        for (int j = 0; j < 9; j++)
+            if (matrix[i][j] == 0)
+                box_list.push_back(std::make_tuple(i, j));
+
+    // 逐个填充空格
+    std::map<std::string, std::vector<int>> available_num {};
+    int full_num = 0;
+    int empty_num = box_list.size();
+    while (full_num < empty_num)
+    {
+        std::tuple<int, int> position = box_list[full_num];
+        int row = std::get<0>(position);
+        int col = std::get<1>(position);
+        std::vector<int> able_unit;
+        std::string key = std::to_string(row) + "x" + std::to_string(col);
+        if (available_num.find(key) == available_num.end())
+        {
+            // 九宫格
+            std::vector<int> able_unit = get_unit();
+            for(int i=row/3*3; i<row/3*3+3; i++){
+                for(int j=col/3*3; j<col/3*3+3; j++){
+                    able_unit.erase(std::remove(able_unit.begin(), able_unit.end(), matrix[i][j]), able_unit.end());
+                }
+            }
+            // 行
+            for (int i = 0; i < 9; i++)
+                if (matrix[row][i] != 0)
+                    able_unit.erase(std::remove(able_unit.begin(), able_unit.end(), matrix[row][i]), able_unit.end());
+            // 列
+            for (int i = 0; i < 9; i++)
+                if (matrix[i][col] != 0)
+                    able_unit.erase(std::remove(able_unit.begin(), able_unit.end(), matrix[i][col]), able_unit.end());
+            available_num[key] = able_unit;
+        }
+        else
+        {
+            able_unit = available_num[key];
+        }
+
+        // 如果没有可用的数字，则回溯
+        if (available_num[key].size() <= 0)
+        {
+            full_num -= 1;
+            if (available_num.find(key) != available_num.end())
+                available_num.erase(key);
+            matrix[row][col] = 0;
+            continue;
+        }
+        else
+        {
+            matrix[row][col] = available_num[key].back();
+            available_num[key].pop_back();
+            full_num += 1;
+        }
+
     }
 
     // 填入场景
@@ -365,8 +430,7 @@ void CScene::generate()
         for (int col = 0; col < 9; ++col)
         {
             point_t point = {row, col};
-            char key = map_pattern[row][col];
-            setValue(point, hash_map[key]);
+            setValue(point, matrix[row][col]);
         }
     }
 
