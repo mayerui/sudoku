@@ -1,17 +1,32 @@
 ﻿#ifndef _SUDOKU_UTILITY_INL_
 #define _SUDOKU_UTILITY_INL_
 
+#include <algorithm>
 #include <cstdlib>
 #include <ctime>
 #include <cassert>
 #include <iostream>
+#include <random>
+#include <vector>
 
 //not real random,return number between [begin,end]
 inline unsigned int random(int begin, int end)
 {
-    assert(end >= begin && begin >= 0);
-    srand(time(NULL));
-    return (unsigned int)rand() % (end - begin + 1) + begin;
+    std::random_device rd;
+    std::mt19937 g(rd());
+    return std::uniform_int_distribution<unsigned int>(begin, end)(g);
+}
+
+inline std::vector<int> get_unit(){
+    return std::vector<int> {1, 2, 3, 4, 5, 6, 7, 8, 9};
+}
+
+inline std::vector<int> shuffle_unit(){
+    std::vector<int> unit = get_unit();
+    std::random_device rd;
+    std::mt19937 g(rd());
+    std::shuffle(unit.begin(), unit.end(), g);
+    return unit;
 }
 
 //网上找的均匀化随机数算法,不含max,非随机，弃用
