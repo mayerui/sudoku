@@ -8,7 +8,7 @@ C++ 实现的跨平台数独游戏，命令行操作易上手，可以在开发�
 </a>
 
 ## 构建状态
-[![Linux](https://github.com/mayerui/sudoku/actions/ci-linux.yml/badge.svg)](https://github.com/mayerui/sudoku/actions/workflows/ci-linux.yml)
+[![Linux](https://github.com/mayerui/sudoku/actions/workflows/ci-linux.yml/badge.svg)](https://github.com/mayerui/sudoku/actions/workflows/ci-linux.yml)
 
 ## 特性
 1. 跨平台/编译器 : Linux/Windows/macOS
