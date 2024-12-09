@@ -30,8 +30,8 @@ jobs:
       run: >
         cmake -B ${{github.workspace}}/build 
         -DCMAKE_BUILD_TYPE=${{env.BUILD_TYPE}}
-        -DCMAKE_CXX_COMPILER=${{ env.CC }}
-        -DCMAKE_C_COMPILER=${{ env.CXX }}
+        -DCMAKE_CXX_COMPILER=${{ env.CXX }}
+        -DCMAKE_C_COMPILER=${{ env.CC }}
         -S ${{ github.workspace }}
 
     - name: Build
