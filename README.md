@@ -6,9 +6,9 @@ C++ 实现的跨平台数独游戏，命令行操作易上手，可以在开发�
 <a href="https://github.com/mayerui/sudoku/graphs/contributors">
   <img src="https://contrib.rocks/image?repo=mayerui/sudoku" />
 </a>
-
+[![Linux](https://github.com/mayerui/sudoku/actions/ci-linux.yml/badge.svg)](https://github.com/mayerui/sudoku/actions/workflows/ci-linux.yml)
 ## 特性
-1. 跨平台/编译器 : Linux/Windows/macOS [![Linux gcc](https://github.com/mayerui/sudoku/actions/ci-linux.yml/badge.svg)](https://github.com/mayerui/sudoku/actions/workflows/ci-linux.yml)
+1. 跨平台/编译器 : Linux/Windows/macOS [![Linux](https://github.com/mayerui/sudoku/actions/ci-linux.yml/badge.svg)](https://github.com/mayerui/sudoku/actions/workflows/ci-linux.yml)
 2. 多语言：English/中文
 3. 无第三方库依赖
 4. 控制台运行
