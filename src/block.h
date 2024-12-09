@@ -12,7 +12,7 @@ class CBlock
     CBlock();
     bool isValid() const;
     bool isFull() const;
-    void print() const;
+    void print(const point_t &cursor,int row) const;
     void push_back(point_value_t *point);
 
   private:
