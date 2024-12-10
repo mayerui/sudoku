@@ -14,6 +14,7 @@ enum class State : int
 {
     INITED = 0,
     ERASED,
+    CONFLICT,
 };
 
 enum class KeyMode : int

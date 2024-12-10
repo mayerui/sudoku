@@ -119,7 +119,7 @@ void CScene::init()
 bool CScene::setCurValue(const int nCurValue, int &nLastValue)
 {
     auto point = _map[_cur_point.x + _cur_point.y * 9];
-    if (point.state == State::ERASED)
+    if (point.state == State::ERASED || point.state == State::CONFLICT)
     {
         nLastValue = point.value;
         setValue(nCurValue);
@@ -138,6 +138,12 @@ void CScene::setValue(const int value)
 {
     auto p = _cur_point;
     this->setValue(p, value);
+    if (!_column_block[_cur_point.x].isValid() || !_row_block[_cur_point.y].isValid() || !_xy_block[_cur_point.y/3][_cur_point.x/3].isValid()){
+        _map[_cur_point.x + _cur_point.y * 9].state = State::CONFLICT;
+    }
+    else {
+        _map[_cur_point.x + _cur_point.y * 9].state = State::ERASED;
+    }
 }
 
 // 选择count个格子清空
@@ -260,7 +266,17 @@ void CScene::play()
             else
             {
                 _vCommand.push_back(std::move(oCommand));  // XXX: move without move constructor
+                int is_conflict = 0;
+                if (!_column_block[_cur_point.x].isValid() || !_row_block[_cur_point.y].isValid() || !_xy_block[_cur_point.y/3][_cur_point.x/3].isValid()) {
+                    _map[_cur_point.x + _cur_point.y * 9].state = State::CONFLICT;
+                    is_conflict = 1;
+                }
+                else {
+                    _map[_cur_point.x + _cur_point.y * 9].state = State::ERASED;
+                }
                 show();
+                if (is_conflict)
+                    message(I18n::Instance().Get(I18n::Key::CONFLICT));
                 continue;
             }
         }
@@ -442,7 +458,7 @@ void CScene::generate()
 bool CScene::setPointValue(const point_t &stPoint, const int nValue)
 {
     auto point = _map[stPoint.x + stPoint.y * 9];
-    if (State::ERASED == point.state)
+    if (State::ERASED == point.state || State::CONFLICT == point.state)
     {
         _cur_point = stPoint;
         setValue(nValue);

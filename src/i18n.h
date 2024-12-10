@@ -25,6 +25,7 @@ class I18n {
     CONGRATULATION,
     NOT_COMPLETED,
     ASK_DIFFICULTY,
+    CONFLICT
   };
   using Dict = std::map<Key, std::string>;
 
