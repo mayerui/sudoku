@@ -23,6 +23,11 @@ cmake -B build -S .
 cmake --build build
 ```
 
+### 使用 `homebrew` 安装
+```
+brew install --HEAD cxwx/cxbrew/sudoku
+```
+
 ## 运行
 构建步骤生成的 `sudoku` 可执行文件在 `bin` 目录下
 ``` shell
