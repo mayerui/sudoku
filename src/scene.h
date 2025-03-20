@@ -6,6 +6,7 @@
 #include "common.h"
 #include "block.h"
 #include "command.h"
+#include "SudokuSolver.h"
 
 //数独场景类
 class CScene
@@ -25,6 +26,7 @@ class CScene
     bool isComplete();
 
     void play();
+    void processHint(SudokuSolver &solver);
     bool save(const char *filename);
     bool load(const char *filename);
 

@@ -31,6 +31,7 @@ struct KeyMap
     char DOWN;
     char RIGHT;
     const char ENTER = 0x0D;
+    const char TIP = 0x74;
 };
 
 struct Normal : KeyMap
