@@ -7,6 +7,7 @@
 enum class Language : uint32_t {
   ENGLISH,
   CHINESE,
+  TRADITIONAL_CHINESE,
   MAX,
 };
 

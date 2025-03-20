@@ -68,7 +68,7 @@ KeyMode inputKeyMode() {
 void InputLanguage() {
   std::string language;
   do {
-    message("1English 2中文");
+    message("1English 2中文 3繁體中文");
     std::cin >> language;
 
     try {

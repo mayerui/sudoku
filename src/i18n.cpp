@@ -31,6 +31,21 @@ I18n::Dict chinese = {
     {I18n::Key::ASK_DIFFICULTY, "设置难度: 1简单 2普通 3困难"},
 };
 
+I18n::Dict traditionalChinese = {
+    {I18n::Key::ASK_KEY_MAP, "設定按鍵模式: 1 WASD 2 VIM"},
+    {I18n::Key::INPUT_ERROR, "輸入錯誤!"},
+    {I18n::Key::LOAD_PROGRESS_FAIL, "加載存檔失敗!"},
+    {I18n::Key::ASK_QUIT, "退出遊戲? [Y/N]"},
+    {I18n::Key::ASK_SAVE, "保存進度? [Y/N]"},
+    {I18n::Key::ASK_SAVE_PATH, "輸入存檔文件路徑:"},
+    {I18n::Key::FILE_EXIST_ERROR, "文件已存在"},
+    {I18n::Key::CONTINUE, "繼續"},
+    {I18n::Key::UNDO_ERROR, "沒有可以撤銷的動作"},
+    {I18n::Key::CONGRATULATION, "恭喜! 你解開了謎題!"},
+    {I18n::Key::NOT_COMPLETED, "對不起, 還未完成"},
+    {I18n::Key::ASK_DIFFICULTY, "設定難度: 1簡單 2普通 3困難"},
+};
+
 // Default English
 I18n::I18n() : dict_(&english) {}
 
@@ -46,6 +61,9 @@ void I18n::SetLanguage(Language language) {
       break;
     case Language::CHINESE:
       dict_ = &chinese;
+      break;
+    case Language::TRADITIONAL_CHINESE:
+      dict_ = &traditionalChinese;
       break;
     case Language::MAX:
     default:
