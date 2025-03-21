@@ -14,6 +14,7 @@
 #include "common.h"
 #include "display_symbol.h"
 #include "i18n.h"
+#include "../include/json.hpp"
 #include "utility.inl"
 
 CScene::CScene(int index) : _max_column(pow(index, 2)), _cur_point({0, 0}) {
@@ -169,21 +170,25 @@ bool CScene::save(const char *filename) {
 
   std::fstream fs;
   fs.open(filename, std::fstream::in | std::fstream::out | std::fstream::app);
-
+  using json = nlohmann::json;
+  json j = _map;
+  fs << j.dump(4) << std::endl;
   // save _map
-  for (int i = 0; i < 81; i++) {
-    fs << _map[i].value << ' ' << static_cast<int>(_map[i].state) << std::endl;
-  }
+  // for (int i = 0; i < 81; i++) {
+  //   fs << _map[i].value << ' ' << static_cast<int>(_map[i].state) <<
+  //   std::endl;
+  // }
 
-  // save _cur_point
-  fs << _cur_point.x << ' ' << _cur_point.y << std::endl;
+  // // save _cur_point
+  // fs << _cur_point.x << ' ' << _cur_point.y << std::endl;
 
-  // save _vCommand
-  fs << _vCommand.size() << std::endl;
-  for (CCommand command : _vCommand) {
-    point_t point = command.getPoint();
-    fs << point.x << ' ' << point.y << ' ' << command.getPreValue() << ' ' << std::endl;
-  }
+  // // save _vCommand
+  // fs << _vCommand.size() << std::endl;
+  // for (CCommand command : _vCommand) {
+  //   point_t point = command.getPoint();
+  //   fs << point.x << ' ' << point.y << ' ' << command.getPreValue() << ' '
+  //      << std::endl;
+  // }
 
   fs.close();
   return true;
@@ -331,18 +336,18 @@ void CScene::processHint(SudokuSolver &solver) {
     }
     std::cout << std::endl;
   }
- 
+
   std::cout << "======SOLUTION======" << std::endl;
   int v = solver.getHint(_cur_point.y, _cur_point.x);
   std::cout << "======HINT======" << std::endl;
-  std::cout<< _cur_point.x <<" "<<_cur_point.y <<" " << v << std::endl;
-    if (v != -1) {
-      CCommand oCommand(this);
-      if (oCommand.execute(v)) {
-        _vCommand.push_back(std::move(oCommand));
-        show();
-      }
+  std::cout << _cur_point.x << " " << _cur_point.y << " " << v << std::endl;
+  if (v != -1) {
+    CCommand oCommand(this);
+    if (oCommand.execute(v)) {
+      _vCommand.push_back(std::move(oCommand));
+      show();
     }
+  }
 }
 
 void echoTip() { std::cout << "TIP" << std::endl; }
