@@ -18,7 +18,7 @@ class CScene
     void generate();
     void show() const;
 
-    bool setCurValue(const int nCurValue, int& nLastValue);
+    bool setCurValue(const int nCurValue);
     bool setPointValue(const point_t&, const int);
     point_t getCurPoint();
 
@@ -29,12 +29,13 @@ class CScene
     void processHint(SudokuSolver &solver);
     bool save(const char *filename);
     bool load(const char *filename);
-
+    int getCurrentValue();
     void setMode(KeyMode mode);
 
   private:
     void init(); // 将每个格子的指针放到block里面
     void setValue(const int);
+
     void setValue(const point_t &, const int);
     void printUnderline(int line_no = -1) const;
 

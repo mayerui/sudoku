@@ -27,9 +27,7 @@ CScene::~CScene() {
 void echoTip();
 void CScene::show() const {
   cls();
-
   printUnderline();
-
   for (int row = 0; row < _max_column; ++row) {
     CBlock block = _row_block[row];
     block.print();
@@ -107,16 +105,19 @@ void CScene::init() {
   return;
 }
 
-bool CScene::setCurValue(const int nCurValue, int &nLastValue) {
+bool CScene::setCurValue(const int nCurValue) {
   auto point = _map[_cur_point.x + _cur_point.y * 9];
   if (point.state == State::ERASED) {
-    nLastValue = point.value;
     setValue(nCurValue);
     return true;
   } else
     return false;
 }
 
+int CScene::getCurrentValue() {
+  auto point = _map[_cur_point.x + _cur_point.y * 9];
+  return point.value;
+}
 void CScene::setValue(const point_t &p, const int value) {
   _map[p.x + p.y * 9].value = value;
 }
@@ -181,8 +182,7 @@ bool CScene::save(const char *filename) {
   fs << _vCommand.size() << std::endl;
   for (CCommand command : _vCommand) {
     point_t point = command.getPoint();
-    fs << point.x << ' ' << point.y << ' ' << command.getPreValue() << ' '
-       << command.getCurValue() << std::endl;
+    fs << point.x << ' ' << point.y << ' ' << command.getPreValue() << ' ' << std::endl;
   }
 
   fs.close();
@@ -215,7 +215,7 @@ bool CScene::load(const char *filename) {
     point_t point;
     int preValue, curValue;
     fs >> point.x >> point.y >> preValue >> curValue;
-    _vCommand.emplace_back(this, point, preValue, curValue);
+    _vCommand.emplace_back(this, point, preValue);
   }
   return true;
 }
