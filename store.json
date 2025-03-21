@@ -1,0 +1,355 @@
+{
+    "commands": [
+        {
+            "_nPreValue": 0,
+            "point": {
+                "x": 5,
+                "y": 0
+            }
+        },
+        {
+            "_nPreValue": 0,
+            "point": {
+                "x": 2,
+                "y": 1
+            }
+        },
+        {
+            "_nPreValue": 0,
+            "point": {
+                "x": 0,
+                "y": 2
+            }
+        }
+    ],
+    "cur": {
+        "x": 0,
+        "y": 2
+    },
+    "map": [
+        {
+            "state": 0,
+            "value": 4
+        },
+        {
+            "state": 0,
+            "value": 5
+        },
+        {
+            "state": 0,
+            "value": 7
+        },
+        {
+            "state": 0,
+            "value": 3
+        },
+        {
+            "state": 0,
+            "value": 8
+        },
+        {
+            "state": 1,
+            "value": 9
+        },
+        {
+            "state": 0,
+            "value": 2
+        },
+        {
+            "state": 0,
+            "value": 6
+        },
+        {
+            "state": 0,
+            "value": 1
+        },
+        {
+            "state": 0,
+            "value": 3
+        },
+        {
+            "state": 0,
+            "value": 6
+        },
+        {
+            "state": 1,
+            "value": 2
+        },
+        {
+            "state": 0,
+            "value": 7
+        },
+        {
+            "state": 0,
+            "value": 1
+        },
+        {
+            "state": 0,
+            "value": 4
+        },
+        {
+            "state": 0,
+            "value": 5
+        },
+        {
+            "state": 0,
+            "value": 8
+        },
+        {
+            "state": 1,
+            "value": 0
+        },
+        {
+            "state": 1,
+            "value": 1
+        },
+        {
+            "state": 0,
+            "value": 9
+        },
+        {
+            "state": 0,
+            "value": 8
+        },
+        {
+            "state": 0,
+            "value": 2
+        },
+        {
+            "state": 0,
+            "value": 5
+        },
+        {
+            "state": 1,
+            "value": 0
+        },
+        {
+            "state": 0,
+            "value": 4
+        },
+        {
+            "state": 0,
+            "value": 7
+        },
+        {
+            "state": 1,
+            "value": 0
+        },
+        {
+            "state": 0,
+            "value": 9
+        },
+        {
+            "state": 0,
+            "value": 7
+        },
+        {
+            "state": 1,
+            "value": 0
+        },
+        {
+            "state": 0,
+            "value": 6
+        },
+        {
+            "state": 1,
+            "value": 0
+        },
+        {
+            "state": 0,
+            "value": 1
+        },
+        {
+            "state": 0,
+            "value": 8
+        },
+        {
+            "state": 0,
+            "value": 3
+        },
+        {
+            "state": 0,
+            "value": 2
+        },
+        {
+            "state": 0,
+            "value": 6
+        },
+        {
+            "state": 0,
+            "value": 2
+        },
+        {
+            "state": 0,
+            "value": 3
+        },
+        {
+            "state": 1,
+            "value": 0
+        },
+        {
+            "state": 0,
+            "value": 7
+        },
+        {
+            "state": 1,
+            "value": 0
+        },
+        {
+            "state": 0,
+            "value": 1
+        },
+        {
+            "state": 1,
+            "value": 0
+        },
+        {
+            "state": 1,
+            "value": 0
+        },
+        {
+            "state": 0,
+            "value": 8
+        },
+        {
+            "state": 0,
+            "value": 4
+        },
+        {
+            "state": 0,
+            "value": 1
+        },
+        {
+            "state": 0,
+            "value": 9
+        },
+        {
+            "state": 0,
+            "value": 2
+        },
+        {
+            "state": 0,
+            "value": 3
+        },
+        {
+            "state": 0,
+            "value": 6
+        },
+        {
+            "state": 1,
+            "value": 0
+        },
+        {
+            "state": 0,
+            "value": 7
+        },
+        {
+            "state": 1,
+            "value": 0
+        },
+        {
+            "state": 0,
+            "value": 3
+        },
+        {
+            "state": 0,
+            "value": 9
+        },
+        {
+            "state": 0,
+            "value": 1
+        },
+        {
+            "state": 1,
+            "value": 0
+        },
+        {
+            "state": 0,
+            "value": 2
+        },
+        {
+            "state": 0,
+            "value": 7
+        },
+        {
+            "state": 0,
+            "value": 4
+        },
+        {
+            "state": 0,
+            "value": 8
+        },
+        {
+            "state": 0,
+            "value": 2
+        },
+        {
+            "state": 1,
+            "value": 0
+        },
+        {
+            "state": 0,
+            "value": 4
+        },
+        {
+            "state": 0,
+            "value": 5
+        },
+        {
+            "state": 1,
+            "value": 0
+        },
+        {
+            "state": 0,
+            "value": 7
+        },
+        {
+            "state": 0,
+            "value": 3
+        },
+        {
+            "state": 1,
+            "value": 0
+        },
+        {
+            "state": 0,
+            "value": 6
+        },
+        {
+            "state": 1,
+            "value": 0
+        },
+        {
+            "state": 0,
+            "value": 1
+        },
+        {
+            "state": 0,
+            "value": 6
+        },
+        {
+            "state": 0,
+            "value": 4
+        },
+        {
+            "state": 0,
+            "value": 3
+        },
+        {
+            "state": 0,
+            "value": 8
+        },
+        {
+            "state": 0,
+            "value": 9
+        },
+        {
+            "state": 1,
+            "value": 0
+        },
+        {
+            "state": 0,
+            "value": 5
+        }
+    ]
+}

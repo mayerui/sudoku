@@ -9,18 +9,51 @@
 #include <unordered_map>
 #include <vector>
 
+#include "../include/json.hpp"
 #include "SudokuSolver.h"
 #include "color.h"
 #include "common.h"
 #include "display_symbol.h"
 #include "i18n.h"
-#include "../include/json.hpp"
 #include "utility.inl"
+
+// Define a to_json function for point_value_t
+void to_json(nlohmann::json &j, const point_value_t &p) {
+  j = nlohmann::json{{"value", p.value}, {"state", static_cast<int>(p.state)}};
+}
+
+void from_json(const nlohmann::json &j, point_value_t &p) {
+  j.at("value").get_to(p.value);
+  int state;
+  j.at("state").get_to(state);
+  p.state = static_cast<State>(state);
+}
+
+inline void to_json(nlohmann::json &j, const point_t &p) {
+  j = nlohmann::json{{"x", p.x}, {"y", p.y}};
+}
+
+void from_json(const nlohmann::json &j, point_t &p) {
+  j.at("x").get_to(p.x);
+  j.at("y").get_to(p.y);
+}
+
+inline void to_json(nlohmann::json &j, const CCommand &p) {
+  j = nlohmann::json{{"point", p.getPoint()}, {"_nPreValue", p.getPreValue()}};
+}
+
+void from_json(const nlohmann::json &j, CCommand &p) {
+  point_t temp_point;
+  j.at("point").get_to(temp_point);
+  p.setPoint(temp_point);
+  int temp_preValue;
+  j.at("_nPreValue").get_to(temp_preValue);
+  p.setPreValue(temp_preValue);
+}
 
 CScene::CScene(int index) : _max_column(pow(index, 2)), _cur_point({0, 0}) {
   init();
 }
-
 CScene::~CScene() {
   if (keyMap) delete keyMap;
 }
@@ -164,32 +197,18 @@ bool CScene::isComplete() {
 
 bool CScene::save(const char *filename) {
   auto filepath = std::filesystem::path(filename);
-  if (std::filesystem::exists(filepath)) {
-    return false;
-  }
 
   std::fstream fs;
-  fs.open(filename, std::fstream::in | std::fstream::out | std::fstream::app);
+  fs.open(filename, std::fstream::in | std::fstream::out | std::fstream::trunc);
   using json = nlohmann::json;
-  json j = _map;
-  fs << j.dump(4) << std::endl;
-  // save _map
-  // for (int i = 0; i < 81; i++) {
-  //   fs << _map[i].value << ' ' << static_cast<int>(_map[i].state) <<
-  //   std::endl;
-  // }
+  std::vector<point_value_t> v;
 
-  // // save _cur_point
-  // fs << _cur_point.x << ' ' << _cur_point.y << std::endl;
+  for (int i = 0; i < 81; i++) {
+    v.push_back(_map[i]);
+  }
 
-  // // save _vCommand
-  // fs << _vCommand.size() << std::endl;
-  // for (CCommand command : _vCommand) {
-  //   point_t point = command.getPoint();
-  //   fs << point.x << ' ' << point.y << ' ' << command.getPreValue() << ' '
-  //      << std::endl;
-  // }
-
+  json saveData = {{"cur", _cur_point}, {"map", _map}, {"commands", _vCommand}};
+  fs << saveData.dump(4) << std::endl;
   fs.close();
   return true;
 }
@@ -203,25 +222,39 @@ bool CScene::load(const char *filename) {
   std::fstream fs;
   fs.open(filename, std::fstream::in | std::fstream::out | std::fstream::app);
 
+  using json = nlohmann::json;
+
+  json res;
+
+  fs >> res;
+
+  std::vector<point_value_t> v;
+  res.at("map").get_to(v);
   // load _map
   for (int i = 0; i < 81; i++) {
-    int tmpState;
-    fs >> _map[i].value >> tmpState;
-    _map[i].state = static_cast<State>(tmpState);
+    _map[i].state = v[i].state;
+    _map[i].value = v[i].value;
   }
 
   // load _cur_point
   fs >> _cur_point.x >> _cur_point.y;
+  point_t p;
+  res.at("cur").get_to(p);
+  _cur_point.x = p.x;
+  _cur_point.y = p.y;
 
-  // load _vCommand
-  int commandSize;
-  fs >> commandSize;
-  for (int i = 0; i < commandSize; i++) {
-    point_t point;
-    int preValue, curValue;
-    fs >> point.x >> point.y >> preValue >> curValue;
-    _vCommand.emplace_back(this, point, preValue);
+  std::vector<CCommand> c;
+
+  auto commands = res.at("commands");
+
+  if (commands.is_array()) {
+    for (auto &command : commands) {
+      CCommand c(this);
+      command.get_to(c);
+      _vCommand.emplace_back(c);
+    }
   }
+
   return true;
 }
 

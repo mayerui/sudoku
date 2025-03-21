@@ -15,8 +15,8 @@ public:
 
     bool execute(int nInputValue);
     void undo();
-    point_t getPoint() { return _stPoint; }
-    int getPreValue() { return _nPreValue; }
+   const point_t getPoint() const { return _stPoint; }
+   const int getPreValue() const { return _nPreValue; }
     void setPoint(const point_t &point) { _stPoint = point; }
     void setPreValue(int preValue) { _nPreValue = preValue; }
 
