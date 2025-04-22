@@ -29,19 +29,6 @@ inline std::vector<int> shuffle_unit(){
     return unit;
 }
 
-//网上找的均匀化随机数算法,不含max,非随机，弃用
-inline int AverageRandom(int min, int max)
-{
-    int minInteger = min * 10000;
-    int maxInteger = max * 10000;
-    srand(time(NULL));
-    int randInteger = rand() * rand();
-    int diffInteger = maxInteger - minInteger;
-    int resultInteger = randInteger % diffInteger + minInteger;
-
-    return (resultInteger / 10000);
-}
-
 inline void message(const char* msg = "", bool lf = true)
 {
     std::cout << msg;

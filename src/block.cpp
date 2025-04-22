@@ -55,7 +55,7 @@ void CBlock::print(int cur_point) const {
     if (number.state == State::ERASED) num_fgcolor = Color::FG_GREEN;
     else num_fgcolor = Color::FG_DEFAULT;
     if (number.value == 0) num = ' ';
-    else num = '0' + number.value;
+    else num = '0' + static_cast<char>(number.value);
 
     std::cout << Color::Modifier(Color::BOLD, num_bgcolor, num_fgcolor) << num
               << Color::Modifier() << " " 

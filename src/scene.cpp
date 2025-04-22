@@ -16,7 +16,7 @@
 #include "color.h"
 
 CScene::CScene(int index)
-    : _max_column(pow(index, 2))
+    : _max_column(static_cast<int>(pow(index, 2)))
     , _cur_point({0, 0})
 {
     init();
@@ -152,7 +152,7 @@ void CScene::eraseRandomGrids(const int count)
     }
 
     for (int i = 0; i < count; ++i) {
-        int r = random(0, v.size() - 1);
+        int r = random(0, static_cast<int>(v.size() - 1));
         _map[v[r]] = p;
         v.erase(v.begin() + r);
     }
@@ -250,7 +250,7 @@ void CScene::play()
     char key = '\0';
     while (1)
     {
-        key = _getch();
+        key = static_cast<char>(_getch());
         if (key >= '0' && key <= '9')
         {
             CCommand oCommand(this);
@@ -375,7 +375,7 @@ void CScene::generate()
     // 逐个填充空格
     std::map<std::string, std::vector<int>> available_num {};
     int full_num = 0;
-    int empty_num = box_list.size();
+    int empty_num = static_cast<int>(box_list.size());
     while (full_num < empty_num)
     {
         std::tuple<int, int> position = box_list[full_num];
@@ -386,7 +386,7 @@ void CScene::generate()
         if (available_num.find(key) == available_num.end())
         {
             // 九宫格
-            std::vector<int> able_unit = get_unit();
+            able_unit = get_unit();
             for(int i=row/3*3; i<row/3*3+3; i++){
                 for(int j=col/3*3; j<col/3*3+3; j++){
                     able_unit.erase(std::remove(able_unit.begin(), able_unit.end(), matrix[i][j]), able_unit.end());

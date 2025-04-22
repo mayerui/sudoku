@@ -8,9 +8,17 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 SET(CMAKE_BUILD_TYPE "Debug")  # Debug模式 选项: Release Debug MinSizeRel RelWithDebInfo
 # 针对不同模式设置编译选项
 if(CMAKE_BUILD_TYPE STREQUAL "Debug")
-  add_compile_options(-O0 -Wall -g2)
+  if (MSVC)
+    add_compile_options(/W4 /Od)
+  else()
+    add_compile_options(-O0 -Wall -g2)
+  endif()
 else(CMAKE_BUILD_TYPE STREQUAL "Release")
-  add_compile_options(-O3 -Wall)
+  if (MSVC)
+    add_compile_options(/W4 /O2)
+  else()
+    add_compile_options(-O3 -Wall)
+  endif()
 endif()
 
 # set(CMAKE_VERBOSE_MAKEFILE ON) # 开启调试 出现问题时开启
