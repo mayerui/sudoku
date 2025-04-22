@@ -41,35 +41,26 @@ bool CBlock::isFull() const
     return true;
 }
 
-void CBlock::print() const {
+void CBlock::print(int cur_point) const {
   std::cout << Color::Modifier(Color::BOLD, Color::BG_DEFAULT, Color::FG_RED) << PIPE << Color::Modifier()<< " ";
   for (int i = 0; i < _count; ++i) {
     auto number = *(_numbers[i]);
-    if((i+1)%3 == 0) {
-      if (0 == number.value)
-        std::cout << ' ' << " " << Color::Modifier(Color::BOLD, Color::BG_DEFAULT, Color::FG_RED) << PIPE << Color::Modifier() << " ";
-      else {
-        if (number.state == State::ERASED)
-          std::cout << Color::Modifier(Color::BOLD, Color::BG_DEFAULT, Color::FG_GREEN) << number.value
-                    << Color::Modifier() << " " 
-                    << Color::Modifier(Color::BOLD, Color::BG_DEFAULT, Color::FG_RED) << PIPE 
-                    << Color::Modifier() << " ";
-        else
-          std::cout << number.value << " " << Color::Modifier(Color::BOLD, Color::BG_DEFAULT, Color::FG_RED) 
-                    << PIPE << Color::Modifier() << " ";
-      }
-    } else {
-      if (0 == number.value)
-      std::cout << ' ' << " " << PIPE << " ";
-      else {
-        if (number.state == State::ERASED)
-          std::cout << Color::Modifier(Color::BOLD, Color::BG_DEFAULT, Color::FG_GREEN) << number.value
-                    << Color::Modifier() << " " << PIPE << " ";
-        else
-          std::cout << number.value << " " << PIPE << " ";
-      }
-    }
+    Color::Code pipe_color, num_bgcolor, num_fgcolor;
+    char num;
     
+    if ((i+1)%3 == 0) pipe_color = Color::FG_RED;
+    else pipe_color = Color::FG_DEFAULT;
+    if (i==cur_point) num_bgcolor = Color::BG_BLUE;
+    else num_bgcolor = Color::BG_DEFAULT;
+    if (number.state == State::ERASED) num_fgcolor = Color::FG_GREEN;
+    else num_fgcolor = Color::FG_DEFAULT;
+    if (number.value == 0) num = ' ';
+    else num = '0' + number.value;
+
+    std::cout << Color::Modifier(Color::BOLD, num_bgcolor, num_fgcolor) << num
+              << Color::Modifier() << " " 
+              << Color::Modifier(Color::BOLD, Color::BG_DEFAULT, pipe_color) << PIPE 
+              << Color::Modifier() << " ";
   }
   std::cout << std::endl;
 }

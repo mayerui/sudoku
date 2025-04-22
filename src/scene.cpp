@@ -36,7 +36,8 @@ void CScene::show() const
     for (int row = 0; row < _max_column; ++row)
     {
         CBlock block = _row_block[row];
-        block.print();
+        if(_cur_point.y == row) block.print(_cur_point.x);
+        else block.print();
         printUnderline(row);
     }
 }
