@@ -12,8 +12,9 @@ class CBlock
     CBlock();
     bool isValid() const;
     bool isFull() const;
-    void print(int cur_point = -1) const;
+    void print(int cur_point = -1, char highlighted_num = '0') const;
     void push_back(point_value_t *point);
+    char getNumberValue(int index) const;
 
   private:
     int _count;
