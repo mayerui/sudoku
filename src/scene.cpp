@@ -33,11 +33,18 @@ void CScene::show() const
 
     printUnderline();
 
+    // 获取光标位置的数字值（若光标在有效位置）
+    char highlighted_num = UNSELECTED;
+    if (_cur_point.y >= 0 && _cur_point.y < _max_column) {
+        const CBlock& cursor_block = _row_block[_cur_point.y];
+        highlighted_num = cursor_block.getNumberValue(_cur_point.x);
+    }
+
     for (int row = 0; row < _max_column; ++row)
     {
         CBlock block = _row_block[row];
-        if(_cur_point.y == row) block.print(_cur_point.x);
-        else block.print();
+        if(_cur_point.y == row) block.print(_cur_point.x, highlighted_num);
+        else block.print(-1, highlighted_num);
         printUnderline(row);
     }
 }
