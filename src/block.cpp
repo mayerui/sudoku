@@ -41,12 +41,12 @@ bool CBlock::isFull() const
     return true;
 }
 
-void CBlock::print(int cur_point, char highlighted_num) const {
+void CBlock::print(int cur_point, int highlighted_num) const {
   std::cout << Color::Modifier(Color::BOLD, Color::BG_DEFAULT, Color::FG_RED) << PIPE << Color::Modifier()<< " ";
   for (int i = 0; i < _count; ++i) {
     auto number = *(_numbers[i]);
     Color::Code pipe_color, num_bgcolor, num_fgcolor;
-    char num;
+    int num;
     
     if ((i+1)%3 == 0) pipe_color = Color::FG_RED;
     else pipe_color = Color::FG_DEFAULT;
@@ -75,7 +75,7 @@ void CBlock::push_back(point_value_t *point)
     _numbers[_count++] = point;
 }
 
-char CBlock::getNumberValue(int index) const 
+int CBlock::getNumberValue(int index) const 
 {
     if (index >= 0 && index < _count) {
         return _numbers[index]->value;

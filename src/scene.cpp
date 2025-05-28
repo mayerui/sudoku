@@ -34,7 +34,7 @@ void CScene::show() const
     printUnderline();
 
     // 获取光标位置的数字值（若光标在有效位置）
-    char highlighted_num = UNSELECTED;
+    int highlighted_num = UNSELECTED;
     if (_cur_point.y >= 0 && _cur_point.y < _max_column) {
         const CBlock& cursor_block = _row_block[_cur_point.y];
         highlighted_num = cursor_block.getNumberValue(_cur_point.x);
