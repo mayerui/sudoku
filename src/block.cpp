@@ -41,17 +41,21 @@ bool CBlock::isFull() const
     return true;
 }
 
-void CBlock::print(int cur_point) const {
+void CBlock::print(int cur_point, int highlighted_num) const {
   std::cout << Color::Modifier(Color::BOLD, Color::BG_DEFAULT, Color::FG_RED) << PIPE << Color::Modifier()<< " ";
   for (int i = 0; i < _count; ++i) {
     auto number = *(_numbers[i]);
     Color::Code pipe_color, num_bgcolor, num_fgcolor;
-    char num;
+    int num;
     
     if ((i+1)%3 == 0) pipe_color = Color::FG_RED;
     else pipe_color = Color::FG_DEFAULT;
+
     if (i==cur_point) num_bgcolor = Color::BG_BLUE;
+    else if (highlighted_num != UNSELECTED && number.value == highlighted_num)
+        num_bgcolor = Color::BG_YELLOW; // 与当前光标相同数字高亮为黄色
     else num_bgcolor = Color::BG_DEFAULT;
+    
     if (number.state == State::ERASED) num_fgcolor = Color::FG_GREEN;
     else num_fgcolor = Color::FG_DEFAULT;
     if (number.value == 0) num = ' ';
@@ -69,4 +73,12 @@ void CBlock::push_back(point_value_t *point)
 {
     assert(nullptr != point);
     _numbers[_count++] = point;
+}
+
+int CBlock::getNumberValue(int index) const 
+{
+    if (index >= 0 && index < _count) {
+        return _numbers[index]->value;
+    }
+    return UNSELECTED; // 或抛异常
 }
