@@ -34,7 +34,7 @@ int inputDifficulty()
                 break;
             }
         }
-        catch(...) 
+        catch(...) //catch all types of exceptions
         {
             need_erase_grids = 0;
         }
