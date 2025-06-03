@@ -2,11 +2,11 @@
 
 #include <cassert>
 #include <iostream>
+#include <string>
 
 #include "color.h"
 #include "common.h"
 #include "display_symbol.h"
-
 
 CBlock::CBlock()
     : _count(0) {}
@@ -46,7 +46,7 @@ void CBlock::print(int cur_point, int highlighted_num) const {
   for (int i = 0; i < _count; ++i) {
     auto number = *(_numbers[i]);
     Color::Code pipe_color, num_bgcolor, num_fgcolor;
-    int num;
+    std::string num = " ";
     
     if ((i+1)%3 == 0) pipe_color = Color::FG_RED;
     else pipe_color = Color::FG_DEFAULT;
@@ -58,8 +58,10 @@ void CBlock::print(int cur_point, int highlighted_num) const {
     
     if (number.state == State::ERASED) num_fgcolor = Color::FG_GREEN;
     else num_fgcolor = Color::FG_DEFAULT;
-    if (number.value == 0) num = ' ';
-    else num = '0' + static_cast<char>(number.value);
+
+    if (number.value != 0) {
+      num = std::to_string(number.value);
+    }
 
     std::cout << Color::Modifier(Color::BOLD, num_bgcolor, num_fgcolor) << num
               << Color::Modifier() << " " 
