@@ -2,6 +2,6 @@
 build
 bin
 # IDE
-.vscode
+.vscode/settings.json
 # clang
 .cache
