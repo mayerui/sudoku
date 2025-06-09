@@ -37,20 +37,20 @@ struct Normal : KeyMap
 {
     Normal()
     {
-        UP = 0x77;
-        LEFT = 0x61;
-        DOWN = 0x73;
-        RIGHT = 0x64;
+        UP = 0x77;          //w
+        LEFT = 0x61;        //a
+        DOWN = 0x73;    //s
+        RIGHT = 0x64;    //d
     }
 };
 
 struct Vim : KeyMap {
     Vim()
     {
-        UP = 0x6B;
-        LEFT = 0x68;
-        DOWN = 0x6A;
-        RIGHT = 0x6C;
+        UP = 0x6B;              //k
+        LEFT = 0x68;            //h
+        DOWN = 0x6A;        //j
+        RIGHT = 0x6C;       //i
     }
 };
 

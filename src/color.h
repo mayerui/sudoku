@@ -48,6 +48,7 @@ class Modifier
   public:
     Modifier() : md(Color::RESET),bg(Color::BG_DEFAULT),fg(Color::FG_DEFAULT) {}
     Modifier(Code Mode, Code BackGround, Code FrontGround) : md(Mode),bg(BackGround),fg(FrontGround) {}
+    
     friend std::ostream &
     operator<<(std::ostream &os, const Modifier &mod)
     {   

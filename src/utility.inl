@@ -8,21 +8,26 @@
 #include <iostream>
 #include <random>
 #include <vector>
+#include <numeric>
 
 //not real random,return number between [begin,end]
+//内联函数
 inline unsigned int random(int begin, int end)
 {
     std::random_device rd;
-    std::mt19937 g(rd());
+    std::mt19937 g(rd());                       //Mersenne Twister 是一种常用的伪随机数生成算法
+    //创建一个均匀分布的整数分布对象，其范围为[begin, end]——std::uniform_int_distribution<unsigned int>(begin, end)
     return std::uniform_int_distribution<unsigned int>(begin, end)(g);
 }
 
-inline std::vector<int> get_unit(){
-    return std::vector<int> {1, 2, 3, 4, 5, 6, 7, 8, 9};
+inline std::vector<int> get_unit(int max_value){
+    std::vector<int> result(max_value);  // 创建大小为 max_value 的 vector
+    std::iota(result.begin(), result.end(), 1);  // 从1开始填充直到 max_value
+    return result;
 }
 
-inline std::vector<int> shuffle_unit(){
-    std::vector<int> unit = get_unit();
+inline std::vector<int> shuffle_unit(int max_value){
+    std::vector<int> unit = get_unit(max_value);
     std::random_device rd;
     std::mt19937 g(rd());
     std::shuffle(unit.begin(), unit.end(), g);
@@ -94,6 +99,7 @@ inline void message(const std::string& msg, bool lf = true) {
     inline char _getch() { return getch(); }
 #endif
 
+//在不同操作系统上执行清屏操作
 inline void cls(void)
 {
 #ifdef _WIN32
