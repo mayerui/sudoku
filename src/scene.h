@@ -15,8 +15,9 @@ class CScene
     virtual ~CScene();
 
     void generate();
-    void show() const;
+    void show() const;              //确保函数只用于“读取”数据，而不“写入”或改变对象
 
+    //将参数声明为 const 可以防止你在函数体中无意间改变这个局部副本
     bool setCurValue(const int nCurValue, int& nLastValue);
     bool setPointValue(const point_t&, const int);
     point_t getCurPoint();
@@ -39,11 +40,13 @@ class CScene
 private:
     KeyMap *keyMap{};
     int _max_column;
+    int subBlockSize;  // 子块的边长
     point_t _cur_point;
-    CBlock _column_block[9];
-    CBlock _row_block[9];
-    CBlock _xy_block[3][3];
-    point_value_t _map[81];
+    std::vector<CBlock> _column_block;
+    std::vector<CBlock> _row_block;
+    std::vector<std::vector<CBlock>> _xy_block;
+    std::vector<point_value_t> _map;
+
 
     std::vector<CCommand> _vCommand;
 };

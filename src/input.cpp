@@ -6,12 +6,12 @@
 #include "utility.inl"
 
 // return number of grids to be erased
-int inputDifficulty()
+int inputDifficulty(int index)
 {
-    cls();
+    cls();                                         //清屏
 
-    std::string cmd;
-    int need_erase_grids = 0;
+    std::string cmd;                        //存储用户输入的字符串
+    int need_erase_grids = 0;         //用于存储将被擦除的网格数量
     while (true)
     {
         message(I18n::Instance().Get(I18n::Key::ASK_DIFFICULTY));
@@ -21,19 +21,25 @@ int inputDifficulty()
         try
         {
             Difficulty difficulty = static_cast<Difficulty>(std::stoi(cmd));
+
+            //按比例计算要删除的格子的数量
+            // easy；normal；hard = 24.7%；43.2%；61.7%
+            double totalGrids = pow(index, 4);
+
             switch (difficulty)
             {
             case Difficulty::EASY:
-                need_erase_grids = 20;
+                need_erase_grids = static_cast<int>(totalGrids * 0.247);
                 break;
             case Difficulty::NORMAL:
-                need_erase_grids = 35;
+              need_erase_grids = static_cast<int>(totalGrids * 0.432);
                 break;
             case Difficulty::HARD:
-                need_erase_grids = 50;
+              need_erase_grids = static_cast<int>(totalGrids * 0.617);
                 break;
             }
         }
+
         catch(...) 
         {
             need_erase_grids = 0;
@@ -48,6 +54,7 @@ int inputDifficulty()
     return need_erase_grids;
 }
 
+//获取用户输入的按键模式，并将其转换为 KeyMode 类型
 KeyMode inputKeyMode() {
   std::string mode;
   do {

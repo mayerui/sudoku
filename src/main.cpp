@@ -18,15 +18,19 @@ static void printHelp() {
               << std::endl;
 }
 
+
 int main(int argc, char **argv)
 {
   SetSystemEnv();
 
-  CScene scene;
+  //设置子块大小
+  int index = 2 ;
+
+  CScene scene(index);
 
   if (argc == 1) {
     InputLanguage();
-    int eraseGridNumber = inputDifficulty();
+    int eraseGridNumber = inputDifficulty(index);
     scene.generate();
     scene.eraseRandomGrids(eraseGridNumber);
   } else if (argc == 3 && !strcmp(argv[1], "-l")) {

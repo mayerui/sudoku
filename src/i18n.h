@@ -25,10 +25,14 @@ class I18n {
     CONGRATULATION,
     NOT_COMPLETED,
     ASK_DIFFICULTY,
+    GENERATING_SUDOKU,
   };
+
   using Dict = std::map<Key, std::string>;
 
+  //单例设计模式, 确保程序中只存在一个 I18n 类的实例
   static I18n& Instance();
+
   void SetLanguage(Language);
   std::string Get(Key) const;
 
