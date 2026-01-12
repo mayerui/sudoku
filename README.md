@@ -1,74 +1,70 @@
-# sudoku
-C++ 实现的跨平台数独游戏，命令行操作易上手，可以在开发间隙用来放松身心。数百行代码，初学者也可以轻松掌握。
-欢迎通过pull request的方式来添加功能或修复缺陷。
+# Sudoku Qt6
 
-## 感谢贡献者
-<a href="https://github.com/mayerui/sudoku/graphs/contributors">
-  <img src="https://contrib.rocks/image?repo=mayerui/sudoku" />
-</a>
+A cross-platform Sudoku game enhanced with a modern Qt6 GUI. Based on a classic C++ terminal logic, now featuring a fully interactive graphical interface.
 
-## 特性
-1. 跨平台/编译器 : Linux/Windows/macOS [![Linux](https://github.com/mayerui/sudoku/actions/workflows/ci-linux.yml/badge.svg)](https://github.com/mayerui/sudoku/actions/workflows/ci-linux.yml) [![Windows](https://github.com/mayerui/sudoku/actions/workflows/ci-windows.yml/badge.svg)](https://github.com/mayerui/sudoku/actions/workflows/ci-windows.yml) [![macOS](https://github.com/mayerui/sudoku/actions/workflows/ci-macos.yml/badge.svg)](https://github.com/mayerui/sudoku/actions/workflows/ci-macos.yml)
-2. 多语言：English/中文
-3. 无第三方库依赖
-4. 控制台运行
+## Features
 
-## 依赖
-1. cmake 3.12及以上
-2. C++17
+1. **Qt6 GUI**: Smooth interactive interface with mouse and keyboard support.
+2. **Difficulty Levels**: Choose between Easy, Normal, and Hard modes.
+3. **Undo Functionality**: Easily revert accidental moves.
+4. **Visual Feedback**: 3x3 block coloring and selection highlighting.
+5. **Cross-Platform**: Runs on Windows, Linux, and macOS.
 
-## 构建
-``` shell
+## Dependencies
+
+1. CMake 3.12 or higher
+2. C++17 compatible compiler
+3. Qt6 (Components: Core, Gui, Widgets)
+
+## Build
+
+Ensure Qt6 is installed and accessible to CMake (e.g., via `CMAKE_PREFIX_PATH` or system environment).
+
+```shell
 cmake -B build -S .
 cmake --build build
 ```
 
-## 运行
-构建步骤生成的 `sudoku` 可执行文件在 `bin` 目录下
-``` shell
-./sudoku  # 直接启动
-./sudoku -l filename  # 读取游戏进度文件
-./sudoku -h  # 获取帮助信息
+## Run
+
+The executable is generated in the `bin` directory (or build root depending on platform/generator).
+
+```shell
+./bin/sudoku
 ```
 
-## 操作说明
-- 0 删除已填入数字
-- u 撤销上一步操作
-- enter 尝试通关
-- esc 退出游戏
+## Controls
 
-### 普通模式
-- w 光标上移↑
-- a 光标左移←
-- s 光标下移↓
-- d 光标右移→
+### Game Interaction
 
-### VIM模式
-- k 光标上移↑
-- h 光标左移←
-- j 光标下移↓
-- l 光标右移→
+- **Mouse Click**: Select a cell.
+- **Keyboard 1-9**: Fill the selected cell.
+- **0 / Delete / Backspace**: Clear the selected cell.
+- **Arrow Keys**: Move selection cursor.
 
-## 项目结构
+### UI Buttons
+
+- **Difficulty Dropdown**: Select game difficulty (Easy, Normal, Hard).
+- **New Game**: Start a new game with the selected difficulty.
+- **Undo**: Revert the last action.
+- **Check / Finish**: Check if the puzzle is solved correctly.
+
+## Project Structure
+
 ```bash
-│--.gitignore  
-│--build.bat        // Windows 一键编译脚本  
-│--build.sh         // Linux/macOS 一键编译脚本  
-│--CMakeLists.txt   // CMake 项目文件  
-│--README.md     
-└--src              // 源代码目录  
-   │--block.cpp     // 数独格子组合类，可代表行、列、九宫格  
-   │--block.h  
-   │--color.h       // 颜色类  
-   │--command.cpp   // 命令类，实现了撤销功能  
-   │--command.h     
-   │--common.h      // 公共头文件  
-   │--input.cpp     // 输入类  
-   │--input.h   
-   │--main.cpp      // 入口文件  
-   │--scene.cpp     // 游戏场景类  
-   │--scene.h   
-   │--test.cpp      // 测试文件  
-   │--test.h  
-   └--utility.inl   // 一些实用的全局函数  
+│--.gitignore
+│--CMakeLists.txt      // CMake configuration with Qt6 support
+│--README.md
+└--src
+   │--main.cpp         // Qt Application Entry Point
+   │--gui              // GUI Implementation
+   │  │--mainwindow.h/cpp  // Main Window Logic
+   │  │--sudokucell.h/cpp  // Custom Cell Widget
+   │--scene.h/cpp      // Core Game Logic (Refactored)
+   └-- ...             // Other core logic files
 ```
+
+## Credits
+
+Original core logic by [mayerui](https://github.com/mayerui/sudoku).
+Ported to Qt6 GUI by Antigravity.
