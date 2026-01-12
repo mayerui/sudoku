@@ -1,0 +1,8 @@
+# ninja log v5
+1	485	7884574770364488	CMakeFiles/sudoku.dir/src/block.cpp.obj	a1fe001452fde163
+3	508	7884574771127087	CMakeFiles/sudoku.dir/src/command.cpp.obj	bedda2fdaf759125
+4	509	7884574771275081	CMakeFiles/sudoku.dir/src/i18n.cpp.obj	baff166221919cf9
+6	567	7884574772166587	CMakeFiles/sudoku.dir/src/input.cpp.obj	ad3545352a53bdd3
+9	1118	7884574777997432	CMakeFiles/sudoku.dir/src/scene.cpp.obj	b79b17e601fd2175
+8	1389	7884574780613540	CMakeFiles/sudoku.dir/src/main.cpp.obj	61a71032bf895e67
+1391	1635	7884574782890190	D:/Documents/C_Project/sudoku/bin/sudoku.exe	ede7b62c63dbca25

@@ -1,20 +1,20 @@
 CMAKE_MINIMUM_REQUIRED(VERSION 3.12) # cmake最低版本要求
 
-PROJECT(sudoku)    # 工程名 CppTemplate
+PROJECT(sudoku) # 工程名 CppTemplate
 
 set(CMAKE_CXX_STANDARD 17) # C++17标准
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
-SET(CMAKE_BUILD_TYPE "Debug")  # Debug模式 选项: Release Debug MinSizeRel RelWithDebInfo
+SET(CMAKE_BUILD_TYPE "Debug") # Debug模式 选项: Release Debug MinSizeRel RelWithDebInfo
 # 针对不同模式设置编译选项
 if(CMAKE_BUILD_TYPE STREQUAL "Debug")
-  if (MSVC)
+  if(MSVC)
     add_compile_options(/W4 /Od)
   else()
     add_compile_options(-O0 -Wall -g2)
   endif()
-else(CMAKE_BUILD_TYPE STREQUAL "Release")
-  if (MSVC)
+else()
+  if(MSVC)
     add_compile_options(/W4 /O2)
   else()
     add_compile_options(-O3 -Wall)
@@ -37,7 +37,7 @@ INCLUDE_DIRECTORIES("${PROJECT_SOURCE_DIR}/include") # 头文件包含目录
 MESSAGE("Identifying the OS...")
 if(WIN32)
   MESSAGE("This is Windows.")
-  if (CMAKE_CXX_COMPILER_ID STREQUAL "MSVC")
+  if(CMAKE_CXX_COMPILER_ID STREQUAL "MSVC")
     add_compile_options("/source-charset:utf-8")
     add_compile_options("/execution-charset:utf-8")
   else()
@@ -51,8 +51,23 @@ elseif(UNIX)
 endif()
 # 这段代码可以区分操作系统
 
-AUX_SOURCE_DIRECTORY(src DIR_SRCS) # 添加源代码文件夹, 自动扫描所有文件
+set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 
-add_executable(sudoku  # 输出名为sudoku的可执行文件
-   ${DIR_SRCS}
+# 启用 Qt6 的自动化工具
+set(CMAKE_AUTOMOC ON)
+set(CMAKE_AUTOUIC ON)
+set(CMAKE_AUTORCC ON)
+
+# 查找 Qt6 组件
+find_package(Qt6 COMPONENTS Widgets REQUIRED)
+
+AUX_SOURCE_DIRECTORY(src DIR_SRCS) # 添加源代码文件夹, 自动扫描所有文件
+AUX_SOURCE_DIRECTORY(src/gui DIR_GUI_SRCS) # 添加 GUI 源代码
+
+add_executable(sudoku
+  ${DIR_SRCS}
+  ${DIR_GUI_SRCS}
 )
+
+target_link_libraries(sudoku PRIVATE Qt6::Widgets)
+
