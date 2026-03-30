@@ -65,13 +65,13 @@ void CScene::setMode(KeyMode mode)
 
 void CScene::printUnderline(int line_no) const {
     auto is_curline = (_cur_point.y == line_no);
-    for (int colunm = 0; colunm < 9; ++colunm) {
-        if((colunm%3) == 0 || line_no == -1 || (line_no+1)%3 == 0) {
+    for (int column = 0; column < 9; ++column) {
+        if((column%3) == 0 || line_no == -1 || (line_no+1)%3 == 0) {
             std::cout << Color::Modifier(Color::BOLD, Color::BG_DEFAULT, Color::FG_RED) << CORNER << Color::Modifier();
         } else {
             std::cout <<  CORNER;
         }
-        auto third_symbol = (is_curline && _cur_point.x == colunm) ? ARROW : LINE;
+        auto third_symbol = (is_curline && _cur_point.x == column) ? ARROW : LINE;
         if(line_no == -1 || (line_no+1)%3 == 0) {
             std::cout << Color::Modifier(Color::BOLD, Color::BG_DEFAULT, Color::FG_RED) << LINE << third_symbol << LINE << Color::Modifier();
         } else {
