@@ -96,11 +96,8 @@ inline void message(const std::string& msg, bool lf = true) {
 
 inline void cls(void)
 {
-#ifdef _WIN32
-    system("cls");
-#else
-    system("clear");
-#endif
+    // 使用 ANSI 转义序列清屏，比 system("cls") 更高效，减少闪烁
+    std::cout << "\033[H\033[J";
 }
 
 #endif
