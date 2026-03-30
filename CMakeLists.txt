@@ -27,11 +27,9 @@ endif()
 
 add_definitions(-DDEBUG) # 相当于代码中 #define DEBUG
 
-# add_subdirectory(test) # 添加test子目录
-
 SET(EXECUTABLE_OUTPUT_PATH "${PROJECT_SOURCE_DIR}/bin") # 可执行文件输出目录
 
-INCLUDE_DIRECTORIES("${PROJECT_SOURCE_DIR}/include") # 头文件包含目录
+INCLUDE_DIRECTORIES("${PROJECT_SOURCE_DIR}/include" "${PROJECT_SOURCE_DIR}/src") # 头文件包含目录
 
 # 这段代码可以区分操作系统
 MESSAGE("Identifying the OS...")
@@ -51,8 +49,6 @@ elseif(UNIX)
 endif()
 # 这段代码可以区分操作系统
 
-AUX_SOURCE_DIRECTORY(src DIR_SRCS) # 添加源代码文件夹, 自动扫描所有文件
-
-add_executable(sudoku  # 输出名为sudoku的可执行文件
-   ${DIR_SRCS}
-)
+# 添加子目录
+add_subdirectory(src)
+add_subdirectory(tests)
