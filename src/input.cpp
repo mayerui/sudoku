@@ -68,6 +68,8 @@ KeyMode inputKeyMode() {
 void InputLanguage() {
   std::string language;
   do {
+    message("欢迎来到数独游戏，请选择语言");
+    message("Welcome to Sudoku. Please choose a language.");
     message("1English 2中文");
     std::cin >> language;
 
