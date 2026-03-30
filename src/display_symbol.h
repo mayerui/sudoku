@@ -1,4 +1,4 @@
-#pragma once
+﻿#pragma once
 
 constexpr char CORNER[] = "\u254B";
 constexpr char LINE[] = "\u2501";

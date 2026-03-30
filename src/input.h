@@ -3,7 +3,7 @@
 
 #include "common.h"
 
-int inputDifficulty();
+int inputDifficulty(int index = 3);
 KeyMode inputKeyMode();
 void InputLanguage();
 
