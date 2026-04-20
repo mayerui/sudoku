@@ -54,12 +54,12 @@ struct Vim : KeyMap {
     }
 };
 
-using point_t = struct point_t {
+struct point_t {
     int x;
     int y;
 };
 
-using point_value_t = struct point_value_t {
+struct point_value_t {
     int value;
     State state;
 };
